@@ -1,0 +1,23 @@
+# Android & Gradle
+.gradle/
+.idea/
+/build/
+app/build/
+local.properties
+*.iml
+.kotlin/
+
+# Output binaries (GitHub 50MB-100MB limit)
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+# Log & OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/

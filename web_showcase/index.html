@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iTantra — Offline Speech Mesh & Private Voice Calling</title>
+  <meta name="description" content="iTantra is an offline mesh communication network with on-device speech-to-speech translation, 16kHz PCM private voice calling, and emergency SOS for disaster relief." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Header / Navigation -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-tower-broadcast"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">iTantra</span>
+          <span class="brand-tag">P2P MESH OS</span>
+        </div>
+      </div>
+
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span class="status-text">OFFLINE MESH READY (ZERO INTERNET)</span>
+      </div>
+
+      <div class="nav-actions">
+        <button id="soundToggleBtn" class="btn-icon" title="Toggle Sound Effects">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <a href="app-debug.apk" download="iTantra-debug.apk" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-download"></i>
+          <span>Get APK (80 MB)</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Presentation Container -->
+  <main class="presentation-wrapper">
+    <!-- Left Column: Presentation Pitch & Highlights -->
+    <section class="pitch-column">
+      <div class="badge-pill">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>DISASTER MANAGEMENT & DEFENSE RESILIENCE</span>
+      </div>
+
+      <h1 class="pitch-title">
+        Offline Speech Mesh & <span class="gradient-text">Private Voice Calling</span>
+      </h1>
+
+      <p class="pitch-description">
+        When cyclones strike, earthquakes sever cell towers, or military comms blackout, <strong>iTantra</strong> creates an instant decentralized wireless network. Native Android on-device neural translation across <strong>10 Indian languages</strong>, 16kHz PCM VoIP calling, and high-priority SOS alarms—all running with <strong>zero internet, zero SIM, and zero external servers</strong>.
+      </p>
+
+      <!-- Key Capabilities Grid -->
+      <div class="specs-grid">
+        <div class="spec-card">
+          <div class="spec-icon"><i class="fa-solid fa-wifi"></i></div>
+          <div class="spec-info">
+            <span class="spec-val">Wi-Fi Direct</span>
+            <span class="spec-label">Multi-hop P2P Mesh</span>
+          </div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-icon"><i class="fa-solid fa-language"></i></div>
+          <div class="spec-info">
+            <span class="spec-val">10 Languages</span>
+            <span class="spec-label">Google ML Kit On-Device</span>
+          </div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-icon"><i class="fa-solid fa-phone"></i></div>
+          <div class="spec-info">
+            <span class="spec-val">16 kHz PCM</span>
+            <span class="spec-label">Full-Duplex Private VoIP</span>
+          </div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="spec-info">
+            <span class="spec-val">Emergency SOS</span>
+            <span class="spec-label">Morse Vibration & Siren</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Presentation Interaction Bar -->
+      <div class="pitch-actions">
+        <a href="app-debug.apk" download="iTantra-debug.apk" class="btn btn-primary btn-lg">
+          <i class="fa-brands fa-android"></i>
+          <div>
+            <span class="btn-subtext">Native Android Application</span>
+            <span class="btn-maintext">Download Real APK (80.5 MB)</span>
+          </div>
+        </a>
+
+        <div class="qr-container">
+          <div class="qr-box" id="qrCodeContainer">
+            <!-- Dynamic QR Code will render here -->
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fitan-tra.vercel.app&color=35-208-127&bgcolor=15-27-34" alt="Scan to download APK" class="qr-image" />
+          </div>
+          <div class="qr-text">
+            <span>Point phone camera</span>
+            <strong>Scan to install APK</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Architecture Pills -->
+      <div class="arch-pills">
+        <span class="arch-pill"><i class="fa-solid fa-microchip"></i> 100% Kotlin & Jetpack Compose</span>
+        <span class="arch-pill"><i class="fa-solid fa-bolt"></i> 38ms Translation Latency</span>
+        <span class="arch-pill"><i class="fa-solid fa-bell"></i> Haptic Morse Feedback</span>
+      </div>
+    </section>
+
+    <!-- Right Column: Interactive Phone Simulator -->
+    <section class="simulator-column">
+      <div class="phone-frame">
+        <!-- Phone Hardware Shell Elements -->
+        <div class="phone-speaker"></div>
+        <div class="phone-camera"></div>
+
+        <!-- Phone Screen Glass -->
+        <div class="phone-screen" id="phoneScreen">
+          <!-- Status Bar -->
+          <div class="sim-statusbar">
+            <span class="sim-time" id="simTime">12:30</span>
+            <div class="sim-status-icons">
+              <span class="p2p-badge"><i class="fa-solid fa-network-wired"></i> Wi-Fi Direct</span>
+              <i class="fa-solid fa-signal"></i>
+              <i class="fa-solid fa-battery-full"></i>
+            </div>
+          </div>
+
+          <!-- App View Container -->
+          <div class="app-viewport">
+
+            <!-- SCREEN 0: WALKIE / PRIVATE CALL / GROUPS -->
+            <div class="screen-view active" id="view-walkie">
+              <div class="app-header">
+                <h2 class="app-title">iTantra</h2>
+                <p class="app-subtitle" id="txt-appTagline">Offline communication network</p>
+              </div>
+
+              <!-- Top Mode Buttons -->
+              <div class="mode-tabs">
+                <button class="mode-btn active" id="btn-mode-walkie" onclick="switchWalkieMode(0)">
+                  <i class="fa-solid fa-microphone"></i>
+                  <span id="txt-modeWalkie">Walkie</span>
+                </button>
+                <button class="mode-btn" id="btn-mode-call" onclick="switchWalkieMode(1)">
+                  <i class="fa-solid fa-phone"></i>
+                  <span id="txt-modeCall">Private Call</span>
+                </button>
+                <button class="mode-btn" id="btn-mode-groups" onclick="switchWalkieMode(2)">
+                  <i class="fa-solid fa-users"></i>
+                  <span id="txt-modeGroups">Groups</span>
+                </button>
+              </div>
+
+              <!-- Language Banner -->
+              <div class="sim-card lang-card" onclick="openLanguageDialog()">
+                <div class="lang-card-left">
+                  <i class="fa-solid fa-language icon-accent"></i>
+                  <div>
+                    <div class="card-caption" id="txt-yourLanguage">Your language</div>
+                    <div class="card-value" id="currentLanguageDisplay">मराठी (Marathi)</div>
+                  </div>
+                </div>
+                <button class="btn-tiny" id="txt-changeLangBtn">CHANGE</button>
+              </div>
+
+              <!-- Mode 0: Walkie-Talkie Panel -->
+              <div class="walkie-mode-panel active" id="panel-mode-walkie">
+                <div class="walkie-status-label" id="walkieStatus">Offline ready</div>
+
+                <!-- Big Circular Push-to-Talk Button -->
+                <div class="ptt-container">
+                  <button class="ptt-button" id="pttButton" onmousedown="startWalkieTalk()" onmouseup="stopWalkieTalk()" ontouchstart="startWalkieTalk(event)" ontouchend="stopWalkieTalk(event)">
+                    <div class="ptt-inner">
+                      <i class="fa-solid fa-microphone ptt-icon"></i>
+                      <span class="ptt-label" id="pttLabel">HOLD TO TALK</span>
+                    </div>
+                    <div class="ptt-pulse-ring" id="pulseRing"></div>
+                  </button>
+                </div>
+
+                <!-- Live Speech Transcript Card -->
+                <div class="sim-card transcript-card" id="transcriptCard">
+                  <div class="card-caption" id="txt-recognizedSpeech">Recognized speech</div>
+                  <div class="transcript-text" id="transcriptText">"आम्ही सुरक्षित ठिकाणी पोहोचलो आहोत."</div>
+                </div>
+
+                <!-- Live Waveform Animation -->
+                <div class="waveform" id="waveform">
+                  <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                  <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                  <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                  <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                  <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </div>
+              </div>
+
+              <!-- Mode 1: Private Wi-Fi Call Panel -->
+              <div class="walkie-mode-panel" id="panel-mode-call">
+                <div class="call-panel-header">
+                  <h3 class="panel-heading" id="txt-callTitle">Private Wi-Fi Call</h3>
+                  <p class="panel-subheading" id="txt-callSubtitle">Real-time bidirectional 16kHz PCM audio without SIM or internet</p>
+                </div>
+
+                <div class="sim-card peer-call-card">
+                  <div class="card-caption" id="txt-selectedPeerLabel">Selected Peer: <span id="callPeerName" class="text-accent">Rescue Unit A</span></div>
+                  <div class="card-meta">Address: 192.168.49.12 : 9998</div>
+                  <div class="card-meta text-muted" id="txt-callStatus">Status: Ready for peer connection</div>
+                </div>
+
+                <div class="call-action-area" id="callActionArea">
+                  <button class="btn btn-primary btn-block" id="btn-startCall" onclick="simulateStartCall()">
+                    <i class="fa-solid fa-phone"></i>
+                    <span id="txt-startCall">START PRIVATE CALL</span>
+                  </button>
+                </div>
+
+                <!-- Connected Call State (Hidden by default) -->
+                <div class="active-call-modal" id="activeCallModal">
+                  <div class="call-pulse-circle">
+                    <i class="fa-solid fa-phone-volume"></i>
+                  </div>
+                  <h4 class="call-live-text" id="txt-callInProgress">CALL IN PROGRESS</h4>
+                  <p class="call-partner" id="txt-liveAudioWith">Live audio stream with Rescue Unit A</p>
+                  <div class="waveform active-pulse">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                  </div>
+                  <div class="call-timer" id="callDuration">00:14</div>
+                  <button class="btn btn-danger btn-block" onclick="simulateEndCall()">
+                    <i class="fa-solid fa-phone-slash"></i>
+                    <span id="txt-endCall">END CALL</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Mode 2: Groups Panel -->
+              <div class="walkie-mode-panel" id="panel-mode-groups">
+                <h3 class="panel-heading" id="txt-groupsTitle">Groups</h3>
+                <p class="panel-subheading" id="txt-groupsSubtitle">Teams · Security · Response units</p>
+
+                <div class="group-create-row">
+                  <input type="text" id="newGroupNameInput" placeholder="New group name" class="sim-input" />
+                  <button class="btn btn-primary btn-sm" onclick="createGroup()" id="txt-createGroup">+ CREATE</button>
+                </div>
+
+                <div class="group-list" id="groupListContainer">
+                  <div class="group-item selected">
+                    <span class="group-name">Disaster Response Alpha</span>
+                    <button class="btn-tiny btn-accent">SELECTED</button>
+                  </div>
+                  <div class="group-item">
+                    <span class="group-name">Medical Core Teams</span>
+                    <button class="btn-tiny">SELECT</button>
+                  </div>
+                </div>
+
+                <input type="text" id="groupMsgInput" placeholder="Group message" class="sim-input mt-2" />
+                <button class="btn btn-danger btn-block mt-2" onclick="sendGroupAlert()" id="txt-sendGroupAlert">
+                  <i class="fa-solid fa-paper-plane"></i>
+                  <span>SEND GROUP ALERT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- SCREEN 1: MESH SCREEN -->
+            <div class="screen-view" id="view-mesh">
+              <div class="screen-header-row">
+                <div>
+                  <h2 class="app-title" id="txt-meshLink">Mesh Link</h2>
+                  <p class="app-subtitle" id="txt-meshSubtitle">Direct peer-to-peer network</p>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="triggerMeshScan()" id="btn-scan">
+                  <i class="fa-solid fa-arrows-rotate"></i>
+                  <span id="txt-scan">SCAN</span>
+                </button>
+              </div>
+
+              <div class="sim-card mesh-state-card">
+                <div class="mesh-status-indicator">
+                  <span class="status-bubble pulse-green"></span>
+                  <strong id="txt-meshConnected">Connected</strong>
+                </div>
+                <div class="card-caption mt-1" id="txt-devicesDiscovered">3 device(s) discovered</div>
+                <div class="card-meta text-accent" id="txt-meshRelayActive">Mesh relay active · P2P port 9999</div>
+              </div>
+
+              <h4 class="section-title" id="txt-discoveredPeers">Discovered Peers</h4>
+
+              <div class="peer-list" id="peerList">
+                <div class="sim-card peer-card selected">
+                  <div class="peer-avatar"><i class="fa-solid fa-mobile-screen"></i></div>
+                  <div class="peer-details">
+                    <strong class="peer-name">Pixel 8 (Team Leader)</strong>
+                    <span class="peer-ip">192.168.49.1 · Direct P2P Group Owner</span>
+                  </div>
+                  <button class="btn-tiny btn-accent" id="txt-peerSelected">SELECTED</button>
+                </div>
+                <div class="sim-card peer-card">
+                  <div class="peer-avatar"><i class="fa-solid fa-mobile-screen"></i></div>
+                  <div class="peer-details">
+                    <strong class="peer-name">Samsung S22 (First Responder)</strong>
+                    <span class="peer-ip">192.168.49.15 · Signal -52 dBm</span>
+                  </div>
+                  <button class="btn-tiny" onclick="selectPeer(this, 'Samsung S22')">CONNECT</button>
+                </div>
+                <div class="sim-card peer-card">
+                  <div class="peer-avatar"><i class="fa-solid fa-mobile-screen"></i></div>
+                  <div class="peer-details">
+                    <strong class="peer-name">OnePlus 11 (Medical Unit)</strong>
+                    <span class="peer-ip">192.168.49.42 · Signal -68 dBm</span>
+                  </div>
+                  <button class="btn-tiny" onclick="selectPeer(this, 'OnePlus 11')">CONNECT</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SCREEN 2: MESSAGES SCREEN -->
+            <div class="screen-view" id="view-messages">
+              <div class="screen-header-row">
+                <div>
+                  <h2 class="app-title" id="txt-messagesTitle">Messages</h2>
+                  <p class="app-subtitle" id="txt-messagesSubtitle">Communication history</p>
+                </div>
+                <button class="btn-tiny" onclick="clearMessages()" id="txt-clear">CLEAR</button>
+              </div>
+
+              <div class="messages-stream" id="messagesStream">
+                <div class="msg-bubble msg-you">
+                  <span class="msg-tag">तुम्ही:</span>
+                  <span class="msg-content">नमस्कार! iTantra ऑफलाइन मोडमध्ये तयार आहे.</span>
+                </div>
+                <div class="msg-bubble msg-peer">
+                  <span class="msg-tag">समोरचा (Peer):</span>
+                  <span class="msg-content">आम्ही बेस कॅम्प 2 कडे मार्गस्थ झालो आहोत.</span>
+                </div>
+                <div class="msg-bubble msg-sos">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span class="msg-tag">SOS:</span>
+                  <span class="msg-content">चक्रीवादळ इशारा: सुरक्षित ठिकाणी त्वरित स्थलांतर करा!</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SCREEN 3: SOS SCREEN -->
+            <div class="screen-view" id="view-sos">
+              <h2 class="app-title text-danger" id="txt-sosTitle">Emergency SOS</h2>
+              <p class="app-subtitle" id="txt-sosSubtitle">Broadcast high-priority distress signal over offline mesh</p>
+
+              <!-- Quick Presets -->
+              <div class="sos-presets">
+                <button class="sos-preset-btn" onclick="triggerSosPreset(this)" id="txt-alertCyclone">चक्रीवादळ इशारा (Cyclone Alert)</button>
+                <button class="sos-preset-btn" onclick="triggerSosPreset(this)" id="txt-alertFlood">अचानक पूर (Flash Flood)</button>
+                <button class="sos-preset-btn" onclick="triggerSosPreset(this)" id="txt-alertMedical">वैद्यकीय आणीबाणी (Medical Emergency)</button>
+                <button class="sos-preset-btn" onclick="triggerSosPreset(this)" id="txt-alertComms">संपर्क तुटला (Comms Blackout)</button>
+              </div>
+
+              <textarea id="customSosText" rows="3" class="sim-textarea" placeholder="Custom emergency message"></textarea>
+
+              <button class="btn btn-danger btn-block btn-sos-main" onclick="broadcastEmergencySos()" id="txt-broadcastSos">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>BROADCAST EMERGENCY SOS</span>
+              </button>
+            </div>
+
+            <!-- SCREEN 4: SETTINGS SCREEN -->
+            <div class="screen-view" id="view-settings">
+              <h2 class="app-title" id="txt-settingsTitle">Settings</h2>
+              <p class="app-subtitle" id="txt-settingsSubtitle">iTantra configuration</p>
+
+              <!-- Dark mode toggle -->
+              <div class="sim-card setting-row">
+                <div>
+                  <strong id="txt-darkMode">Dark mode</strong>
+                  <div class="card-caption" id="txt-darkAppearanceEnabled">Dark appearance enabled</div>
+                </div>
+                <input type="checkbox" checked class="sim-switch" onchange="toggleSimTheme(this)" />
+              </div>
+
+              <!-- Language selector -->
+              <div class="sim-card setting-row" onclick="openLanguageDialog()">
+                <div>
+                  <strong id="txt-language">Language</strong>
+                  <div class="card-caption" id="settingsCurrentLang">मराठी (Marathi)</div>
+                </div>
+                <button class="btn-tiny" id="txt-settingsChange">CHANGE</button>
+              </div>
+
+              <!-- Translation model status -->
+              <div class="sim-card setting-row">
+                <div>
+                  <strong id="txt-translationModel">Translation Model</strong>
+                  <div class="card-caption text-accent" id="txt-modelReady">READY (On-Device)</div>
+                </div>
+                <i class="fa-solid fa-circle-check text-accent"></i>
+              </div>
+
+              <!-- Open Analytics Dashboard Button -->
+              <div class="sim-card setting-row" onclick="openAnalyticsScreen()">
+                <div>
+                  <strong id="txt-realtimeDashboard">Real-time Dashboard</strong>
+                  <div class="card-caption">STT · Translation · TTS · E2E · RAM · CPU</div>
+                </div>
+                <button class="btn-tiny btn-accent" id="txt-open">OPEN</button>
+              </div>
+
+              <!-- Offline AI card -->
+              <div class="sim-card">
+                <strong class="text-accent" id="txt-offlineAi">Offline AI Architecture</strong>
+                <ul class="ai-list mt-1">
+                  <li id="txt-offlineAi1">• On-device Android speech recognition</li>
+                  <li id="txt-offlineAi2">• Google ML Kit on-device translation</li>
+                  <li id="txt-offlineAi3">• Native Android Text-to-Speech</li>
+                </ul>
+                <p class="card-meta mt-2 text-muted" id="txt-offlineAiFooter">
+                  All communication runs strictly peer-to-peer over local Wi-Fi without internet or external servers.
+                </p>
+              </div>
+            </div>
+
+            <!-- SUB-SCREEN: REAL-TIME TELEMETRY DASHBOARD -->
+            <div class="sub-view" id="subview-analytics">
+              <div class="screen-header-row">
+                <button class="btn-tiny" onclick="closeAnalyticsScreen()" id="txt-back">← BACK</button>
+                <h3 class="panel-heading" id="txt-dashHeading">Real-time Dashboard</h3>
+              </div>
+
+              <div class="telemetry-grid">
+                <div class="telemetry-card">
+                  <span class="card-caption" id="txt-dashLang">Language</span>
+                  <strong class="telemetry-val" id="dashLangVal">Marathi</strong>
+                  <span class="card-meta" id="txt-dashSelected">Current selected</span>
+                </div>
+                <div class="telemetry-card">
+                  <span class="card-caption">STT Latency</span>
+                  <strong class="telemetry-val text-accent">12 ms</strong>
+                  <span class="card-meta" id="txt-dashStt">Speech → text</span>
+                </div>
+                <div class="telemetry-card">
+                  <span class="card-caption" id="txt-dashTrans">Translation</span>
+                  <strong class="telemetry-val text-accent">38 ms</strong>
+                  <span class="card-meta" id="txt-dashT2t">Text → text</span>
+                </div>
+                <div class="telemetry-card">
+                  <span class="card-caption" id="txt-dashTts">TTS latency</span>
+                  <strong class="telemetry-val text-accent">45 ms</strong>
+                  <span class="card-meta" id="txt-dashT2s">Text → speech</span>
+                </div>
+                <div class="telemetry-card">
+                  <span class="card-caption" id="txt-dashE2e">E2E latency</span>
+                  <strong class="telemetry-val text-accent">1.82 sec</strong>
+                  <span class="card-meta" id="txt-dashS2t">Speech → TTS</span>
+                </div>
+                <div class="telemetry-card">
+                  <span class="card-caption" id="txt-dashPayload">Payload</span>
+                  <strong class="telemetry-val">128 B</strong>
+                  <span class="card-meta" id="txt-dashPacket">Latest packet</span>
+                </div>
+              </div>
+
+              <!-- System Resource Bars -->
+              <div class="sim-card mt-2">
+                <strong id="txt-systemResources">System Resources</strong>
+                <div class="resource-row mt-1">
+                  <span id="txt-appRam">App RAM: 184 MB / 512 MB</span>
+                  <div class="progress-bar"><div class="progress-fill" style="width: 36%;"></div></div>
+                </div>
+                <div class="resource-row mt-1">
+                  <span id="txt-cpu">CPU: 8%</span>
+                  <div class="progress-bar"><div class="progress-fill" style="width: 8%;"></div></div>
+                </div>
+              </div>
+
+              <div class="sim-card mt-2">
+                <strong id="txt-networkActivity">Network & Activity</strong>
+                <div class="card-meta mt-1 text-danger">Internet: OFFLINE (Isolated)</div>
+                <div class="card-meta" id="txt-processedMessages">Processed messages: 24</div>
+                <div class="card-meta text-muted" id="txt-lastActivity">Last activity: Just now</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Navigation Bar -->
+          <nav class="sim-bottomnav">
+            <button class="nav-item active" id="tab-0" onclick="switchTab(0)">
+              <i class="fa-solid fa-microphone"></i>
+              <span id="txt-navWalkie">Walkie</span>
+            </button>
+            <button class="nav-item" id="tab-1" onclick="switchTab(1)">
+              <i class="fa-solid fa-wifi"></i>
+              <span id="txt-navMesh">Mesh</span>
+            </button>
+            <button class="nav-item" id="tab-2" onclick="switchTab(2)">
+              <i class="fa-solid fa-message"></i>
+              <span id="txt-navMessages">Messages</span>
+            </button>
+            <button class="nav-item" id="tab-3" onclick="switchTab(3)">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <span id="txt-navSos">SOS</span>
+            </button>
+            <button class="nav-item" id="tab-4" onclick="switchTab(4)">
+              <i class="fa-solid fa-gear"></i>
+              <span id="txt-navSettings">Settings</span>
+            </button>
+          </nav>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Language Selection Modal Dialog inside Simulator -->
+  <div class="modal-overlay" id="languageModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="txt-modalLangTitle">Select Language</h3>
+        <button class="btn-close" onclick="closeLanguageDialog()">&times;</button>
+      </div>
+      <div class="modal-body lang-grid">
+        <button class="lang-opt active" onclick="setLanguage('mr')">मराठी (Marathi)</button>
+        <button class="lang-opt" onclick="setLanguage('hi')">हिन्दी (Hindi)</button>
+        <button class="lang-opt" onclick="setLanguage('gu')">ગુજરાતી (Gujarati)</button>
+        <button class="lang-opt" onclick="setLanguage('bn')">বাংলা (Bengali)</button>
+        <button class="lang-opt" onclick="setLanguage('ta')">தமிழ் (Tamil)</button>
+        <button class="lang-opt" onclick="setLanguage('te')">తెలుగు (Telugu)</button>
+        <button class="lang-opt" onclick="setLanguage('kn')">ಕನ್ನಡ (Kannada)</button>
+        <button class="lang-opt" onclick="setLanguage('ml')">മലയാളം (Malayalam)</button>
+        <button class="lang-opt" onclick="setLanguage('pa')">ਪੰਜਾਬੀ (Punjabi)</button>
+        <button class="lang-opt" onclick="setLanguage('en')">English</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flash Effect Overlay for SOS -->
+  <div class="sos-screen-flash" id="sosFlash"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>iTantra &bull; Native Android P2P Emergency Network &bull; Built for Offline Disaster Relief</p>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
