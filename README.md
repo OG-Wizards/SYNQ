@@ -9,8 +9,13 @@
 [![Architecture](https://img.shields.io/badge/Architecture-MVVM_+_StateFlow-blue)](#)
 [![Networking](https://img.shields.io/badge/Mesh-Wi--Fi_Direct_P2P-35D07F)](#)
 [![Translation](https://img.shields.io/badge/ML_Kit-On--Device_Neural-FF6F00)](#)
+[![Live Demo](https://img.shields.io/badge/Live_Showcase-webshowcase--pied.vercel.app-black?logo=vercel&logoColor=white)](https://webshowcase-pied.vercel.app)
+
+> 🔗 **Live Web Showcase & Presentation Link**: [https://webshowcase-pied.vercel.app](https://webshowcase-pied.vercel.app)  
+> 📥 **Direct APK Download**: [Download iTantra-debug.apk](https://webshowcase-pied.vercel.app/app-debug.apk)
 
 ---
+
 
 ## 🌟 Executive Summary
 
