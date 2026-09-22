@@ -157,9 +157,15 @@
       </div>
 
       <div class="phone-frame" id="phoneSimulatorFrame">
+        <!-- Physical Hardware Buttons (Titanium Chassis) -->
+        <div class="phone-btn-action" title="Action Button"></div>
+        <div class="phone-btn-volume-up" title="Volume Up"></div>
+        <div class="phone-btn-volume-down" title="Volume Down"></div>
+        <div class="phone-btn-power" title="Power / Lock"></div>
+
         <!-- Phone Hardware Shell Elements -->
         <div class="phone-speaker"></div>
-        <div class="phone-camera"></div>
+        <div class="phone-camera"><span class="camera-lens"></span></div>
 
         <!-- Phone Screen Glass -->
         <div class="phone-screen" id="phoneScreen">
@@ -169,7 +175,10 @@
             <div class="sim-status-icons">
               <span class="p2p-badge"><i class="fa-solid fa-network-wired"></i> Wi-Fi Direct</span>
               <i class="fa-solid fa-signal"></i>
-              <i class="fa-solid fa-battery-full"></i>
+              <div class="sim-battery">
+                <div class="battery-shell"><div class="battery-level"></div></div>
+                <span>98%</span>
+              </div>
             </div>
           </div>
 
@@ -465,7 +474,7 @@
               <div class="sim-card setting-row" onclick="openAnalyticsScreen()">
                 <div>
                   <strong id="txt-realtimeDashboard">Real-time Dashboard</strong>
-                  <div class="card-caption">STT · Translation · TTS · E2E · RAM · CPU</div>
+                  <div class="card-caption" id="txt-dashSubtitle">STT · Translation · TTS · E2E · Error Rate · RAM · CPU</div>
                 </div>
                 <button class="btn-tiny btn-accent" id="txt-open">OPEN</button>
               </div>
@@ -516,6 +525,20 @@
                   <span class="card-caption" id="txt-dashE2e">E2E latency</span>
                   <strong class="telemetry-val text-accent">1.82 sec</strong>
                   <span class="card-meta" id="txt-dashS2t">Speech → TTS</span>
+                </div>
+                <!-- Reading: Error Rate -->
+                <div class="telemetry-card telemetry-card-highlight">
+                  <div class="telemetry-card-header">
+                    <span class="card-caption" id="txt-dashErrorRate">Error Rate</span>
+                    <span class="telemetry-status-dot" title="Optimal Network Health"></span>
+                  </div>
+                  <strong class="telemetry-val text-accent" id="dashErrorRateVal">0.00%</strong>
+                  <span class="card-meta" id="txt-dashErrorDrops">0 packet drops (Zero loss)</span>
+                </div>
+                <div class="telemetry-card">
+                  <span class="card-caption" id="txt-dashPacketLoss">Packet Loss</span>
+                  <strong class="telemetry-val text-accent" id="dashPacketLossVal">0.0%</strong>
+                  <span class="card-meta" id="txt-dashMeshHops">Direct 1-Hop P2P</span>
                 </div>
                 <div class="telemetry-card">
                   <span class="card-caption" id="txt-dashPayload">Payload</span>
@@ -570,6 +593,11 @@
               <span id="txt-navSettings">Settings</span>
             </button>
           </nav>
+
+          <!-- Modern Flagship Home Gesture Indicator -->
+          <div class="phone-home-indicator-bar">
+            <div class="home-indicator"></div>
+          </div>
 
           <!-- Emergency Alert Modal with Continuous Siren & Acknowledge Button -->
           <div class="emergency-sos-modal" id="emergencySosModal">

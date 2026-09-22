@@ -55,6 +55,11 @@ const I18N = {
     modelReady: "तयार (ऑन-डिव्हाइस)",
     realtimeDashboard: "रिअल-टाइम डॅशबोर्ड",
     open: "उघडा",
+    dashSubtitle: "STT · भाषांतर · TTS · E2E · त्रुटी दर · RAM · CPU",
+    errorRate: "त्रुटी दर (Error Rate)",
+    errorDrops: "० पॅकेट गळती (उत्कृष्ट ०.००%)",
+    packetLoss: "पॅकेट लॉस",
+    meshHops: "थेट १-हॉप P2P लिंक",
     offlineAi: "ऑफलाइन AI",
     offlineAi1: "• ऑन-डिव्हाइस अँड्रॉइड आवाज ओळख",
     offlineAi2: "• गुगल ML किट ऑन-डिव्हाइस भाषांतर",
@@ -120,6 +125,11 @@ const I18N = {
     modelReady: "तैयार (ऑन-डिवाइस)",
     realtimeDashboard: "रीयल-टाइम डैशबोर्ड",
     open: "खोलें",
+    dashSubtitle: "STT · अनुवाद · TTS · E2E · त्रुटि दर · RAM · CPU",
+    errorRate: "त्रुटि दर (Error Rate)",
+    errorDrops: "० पैकेट ड्रॉप (इष्टतम ०.००%)",
+    packetLoss: "पैकेट हानि",
+    meshHops: "सीधा 1-हॉप P2P लिंक",
     offlineAi: "ऑफलाइन AI",
     offlineAi1: "• ऑन-डिवाइस एंड्रॉइड स्पीच रिकग्निशन",
     offlineAi2: "• गूगल ML किट ऑन-डिवाइस अनुवाद",
@@ -185,6 +195,11 @@ const I18N = {
     modelReady: "તૈયાર (ઑન-ડિવાઇસ)",
     realtimeDashboard: "રીઅલ-ટાઇમ ડેશબોર્ડ",
     open: "ખોલો",
+    dashSubtitle: "STT · અનુવાદ · TTS · E2E · ભૂલ દર · RAM · CPU",
+    errorRate: "ભૂલ દર (Error Rate)",
+    errorDrops: "૦ પેકેટ ડ્રોપ (શ્રેષ્ઠ ૦.૦૦%)",
+    packetLoss: "પેકેટ નુકસાન",
+    meshHops: "સીધી 1-હોપ P2P લિંક",
     offlineAi: "ઑફલાઇન AI",
     offlineAi1: "• ઑન-ડિવાઇસ એન્ડ્રોઇડ સ્પીચ ઓળખ",
     offlineAi2: "• ગૂગલ ML કિટ ઑન-ડિવાઇસ અનુવાદ",
@@ -250,6 +265,11 @@ const I18N = {
     modelReady: "প্রস্তুত (অন-ডিভাইস)",
     realtimeDashboard: "রিয়েল-টাইম ড্যাশবোর্ড",
     open: "খুলুন",
+    dashSubtitle: "STT · অনুবাদ · TTS · E2E · ত্রুটি হার · RAM · CPU",
+    errorRate: "ত্রুটি হার (Error Rate)",
+    errorDrops: "০ প্যাকেট ড্রপ (অনুকূল ০.০০%)",
+    packetLoss: "প্যাকেট ক্ষতি",
+    meshHops: "সরাসরি ১-হপ P2P লিঙ্ক",
     offlineAi: "অফলাইন AI",
     offlineAi1: "• অন-ডিভাইস অ্যান্ড্রয়েড স্পিচ রিকগনিশন",
     offlineAi2: "• গুগল ML কিট অন-ডিভাইস অনুবাদ",
@@ -315,6 +335,11 @@ const I18N = {
     modelReady: "தயார் (ஆன்-டிவைஸ்)",
     realtimeDashboard: "நிகழ்நேர டாஷ்போர்டு",
     open: "திற",
+    dashSubtitle: "STT · மொழிபெயர்ப்பு · TTS · E2E · பிழை விகிதம் · RAM · CPU",
+    errorRate: "பிழை விகிதம் (Error Rate)",
+    errorDrops: "0 பாக்கெட் இழப்பு (0.00%)",
+    packetLoss: "பாக்கெட் இழப்பு",
+    meshHops: "நேரடி 1-ஹாப் P2P",
     offlineAi: "ஆஃப்லைன் AI",
     offlineAi1: "• ஆன்-டிவைஸ் ஆண்ட்ராய்டு பேச்சு அங்கீகாரம்",
     offlineAi2: "• கூகிள் ML கிட் ஆன்-டிவைஸ் மொழிபெயர்ப்பு",
@@ -380,6 +405,11 @@ const I18N = {
     modelReady: "సిద్ధం (ఆన్-డివైస్)",
     realtimeDashboard: "రియల్-టైమ్ డ్యాష్‌బోర్డ్",
     open: "తెరవండి",
+    dashSubtitle: "STT · అనువాదం · TTS · E2E · లోపం రేటు · RAM · CPU",
+    errorRate: "లోపం రేటు (Error Rate)",
+    errorDrops: "0 ప్యాకెట్ నష్టం (0.00%)",
+    packetLoss: "ప్యాకెట్ నష్టం",
+    meshHops: "డైరెక్ట్ 1-హాప్ P2P",
     offlineAi: "ఆఫ్‌లైన్ AI",
     offlineAi1: "• ఆన్-డివైస్ ఆండ్రాయిడ్ స్పీచ్ రికగ్నిషన్",
     offlineAi2: "• గూగుల్ ML కిట్ ఆన్-డివైస్ అనువాదం",
@@ -445,6 +475,11 @@ const I18N = {
     modelReady: "ಸಿದ್ಧ (ಆನ್-ಡಿವೈಸ್)",
     realtimeDashboard: "ನೈಜ-ಸಮಯದ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
     open: "ತೆರೆಯಿರಿ",
+    dashSubtitle: "STT · ಅನುವಾದ · TTS · E2E · ದೋಷ ದರ · RAM · CPU",
+    errorRate: "ದೋಷ ದರ (Error Rate)",
+    errorDrops: "0 ಪ್ಯಾಕೆಟ್ ಡ್ರಾಪ್ (0.00%)",
+    packetLoss: "ಪ್ಯಾಕೆಟ್ ನಷ್ಟ",
+    meshHops: "ನೇರ 1-ಹಾಪ್ P2P",
     offlineAi: "ಆಫ್‌ಲೈನ್ AI",
     offlineAi1: "• ಆನ್-ಡಿವೈಸ್ ಆಂಡ್ರಾಯ್ಡ್ ಸ್ಪೀಚ್ ರೆಕಗ್ನಿಷನ್",
     offlineAi2: "• ಗೂಗಲ್ ML ಕಿಟ್ ಆನ್-ಡಿವೈಸ್ ಅನುವಾದ",
@@ -510,6 +545,11 @@ const I18N = {
     modelReady: "തയ്യാർ (ഓൺ-ഡിവൈസ്)",
     realtimeDashboard: "തത്സമയ ഡാഷ്‌ബോർഡ്",
     open: "തുറക്കുക",
+    dashSubtitle: "STT · വിവർത്തനം · TTS · E2E · പിശക് നിരക്ക് · RAM · CPU",
+    errorRate: "പിശക് നിരക്ക് (Error Rate)",
+    errorDrops: "0 പാക്കറ്റ് ഡ്രോപ്പുകൾ (0.00%)",
+    packetLoss: "പാക്കറ്റ് നഷ്ടം",
+    meshHops: "ഡയറക്ട് 1-ഹോപ്പ് P2P",
     offlineAi: "ഓഫ്‌ലൈൻ AI",
     offlineAi1: "• ഓൺ-ഡിവൈസ് ആൻഡ്രോയിഡ് സ്പീച്ച് റെക്കഗ്നിഷൻ",
     offlineAi2: "• ഗൂഗിൾ ML കിറ്റ് ഓൺ-ഡിവൈസ് വിവർത്തനം",
@@ -575,6 +615,11 @@ const I18N = {
     modelReady: "ਤਿਆਰ (ਆਨ-ਡਿਵਾਈਸ)",
     realtimeDashboard: "ਰੀਅਲ-ਟਾਈਮ ਡੈਸ਼ਬੋਰਡ",
     open: "ਖੋਲ੍ਹੋ",
+    dashSubtitle: "STT · ਅਨੁਵਾਦ · TTS · E2E · ਗਲਤੀ ਦਰ · RAM · CPU",
+    errorRate: "ਗਲਤੀ ਦਰ (Error Rate)",
+    errorDrops: "0 ਪੈਕੇਟ ਡਰਾਪ (0.00%)",
+    packetLoss: "ਪੈਕੇਟ ਨੁਕਸਾਨ",
+    meshHops: "ਸਿੱਧਾ 1-ਹੌਪ P2P",
     offlineAi: "ਆਫਲਾਈਨ AI",
     offlineAi1: "• ਆਨ-ਡਿਵਾਈਸ ਐਂਡਰਾਇਡ ਸਪੀਚ ਪਛਾਣ",
     offlineAi2: "• ਗੂਗਲ ML ਕਿੱਟ ਆਨ-ਡਿਵਾਈਸ ਅਨੁਵਾਦ",
@@ -640,6 +685,11 @@ const I18N = {
     modelReady: "READY (On-Device)",
     realtimeDashboard: "Real-time Dashboard",
     open: "OPEN",
+    dashSubtitle: "STT · Translation · TTS · E2E · Error Rate · RAM · CPU",
+    errorRate: "Error Rate",
+    errorDrops: "0 packet drops (Zero loss)",
+    packetLoss: "Packet Loss",
+    meshHops: "Direct 1-Hop P2P",
     offlineAi: "Offline AI Architecture",
     offlineAi1: "• On-device Android speech recognition",
     offlineAi2: "• Google ML Kit on-device translation",
@@ -874,6 +924,21 @@ function setLanguage(langCode) {
   document.getElementById('txt-modelReady').innerText = s.modelReady;
   document.getElementById('txt-realtimeDashboard').innerText = s.realtimeDashboard;
   document.getElementById('txt-open').innerText = s.open;
+  if (document.getElementById('txt-dashSubtitle')) {
+    document.getElementById('txt-dashSubtitle').innerText = s.dashSubtitle;
+  }
+  if (document.getElementById('txt-dashErrorRate')) {
+    document.getElementById('txt-dashErrorRate').innerText = s.errorRate;
+  }
+  if (document.getElementById('txt-dashErrorDrops')) {
+    document.getElementById('txt-dashErrorDrops').innerText = s.errorDrops;
+  }
+  if (document.getElementById('txt-dashPacketLoss')) {
+    document.getElementById('txt-dashPacketLoss').innerText = s.packetLoss;
+  }
+  if (document.getElementById('txt-dashMeshHops')) {
+    document.getElementById('txt-dashMeshHops').innerText = s.meshHops;
+  }
   document.getElementById('txt-offlineAi').innerText = s.offlineAi;
   document.getElementById('txt-offlineAi1').innerText = s.offlineAi1;
   document.getElementById('txt-offlineAi2').innerText = s.offlineAi2;

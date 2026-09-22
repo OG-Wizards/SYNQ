@@ -198,12 +198,12 @@ body {
 .presentation-wrapper {
   position: relative;
   z-index: 1;
-  max-width: 1400px;
+  max-width: 1480px;
   margin: 0 auto;
-  padding: 36px 24px;
+  padding: 36px 28px;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 48px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 52px;
   align-items: start;
 }
 
@@ -450,51 +450,120 @@ body {
 }
 
 /* =========================================================
-   PHONE SIMULATOR FRAME
+   PHONE SIMULATOR FRAME (Realistic Flagship Mobile Screen)
    ========================================================= */
 .simulator-column {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 24px;
 }
 
 .phone-frame {
-  width: 380px;
-  height: 780px;
-  background: #111419;
-  border: 12px solid #252D37;
-  border-radius: 46px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8),
-              0 0 40px rgba(53, 208, 127, 0.15);
+  width: 440px;
+  height: 890px;
+  background: #0d1117;
+  border: 11px solid #1a2029;
+  border-radius: 54px;
+  box-shadow: 
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.12),
+    0 0 0 2px #090c10,
+    0 35px 85px -10px rgba(0, 0, 0, 0.9),
+    0 0 50px rgba(53, 208, 127, 0.16);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
 }
 
-/* Phone notch / speaker */
+/* Physical Phone Side Buttons (Titanium Chassis Finish) */
+.phone-btn-action {
+  position: absolute;
+  left: -15px;
+  top: 130px;
+  width: 4px;
+  height: 32px;
+  background: linear-gradient(180deg, #35d07f, #22c55e);
+  border-radius: 4px 0 0 4px;
+  box-shadow: -1px 0 4px rgba(53, 208, 127, 0.4);
+  z-index: 10;
+}
+
+.phone-btn-volume-up {
+  position: absolute;
+  left: -15px;
+  top: 180px;
+  width: 4px;
+  height: 54px;
+  background: #252d37;
+  border-radius: 4px 0 0 4px;
+  border-right: 1px solid #1a2029;
+  z-index: 10;
+}
+
+.phone-btn-volume-down {
+  position: absolute;
+  left: -15px;
+  top: 246px;
+  width: 4px;
+  height: 54px;
+  background: #252d37;
+  border-radius: 4px 0 0 4px;
+  border-right: 1px solid #1a2029;
+  z-index: 10;
+}
+
+.phone-btn-power {
+  position: absolute;
+  right: -15px;
+  top: 210px;
+  width: 4px;
+  height: 80px;
+  background: #252d37;
+  border-radius: 0 4px 4px 0;
+  border-left: 1px solid #1a2029;
+  z-index: 10;
+}
+
+/* Phone notch / speaker & punch-hole camera */
 .phone-speaker {
   position: absolute;
-  top: 10px;
+  top: 8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 5px;
-  background: #252D37;
-  border-radius: 10px;
+  width: 72px;
+  height: 4px;
+  background: #1c222b;
+  border-radius: 4px;
   z-index: 50;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .phone-camera {
   position: absolute;
-  top: 18px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: #000;
-  border: 2px solid #252D37;
+  border: 2px solid #1c222b;
   border-radius: 50%;
   z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+}
+
+.camera-lens {
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle at 35% 35%, #2563eb 0%, #0f172a 60%, #000 100%);
+  border-radius: 50%;
+  display: block;
+  box-shadow: inset 0 0 1px #60a5fa;
 }
 
 /* Inside Phone Screen */
@@ -505,39 +574,105 @@ body {
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  border-radius: 44px;
+}
+
+/* Screen Glass Glare Sheen */
+.phone-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 240px;
+  height: 240px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 35;
+  border-radius: 0 44px 0 0;
 }
 
 /* Phone Status Bar */
 .sim-statusbar {
-  padding: 8px 18px;
+  padding: 10px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
   color: var(--text-secondary);
   z-index: 20;
+  user-select: none;
+}
+
+.sim-time {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
 }
 
 .sim-status-icons {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .p2p-badge {
-  font-size: 9px;
+  font-size: 10px;
+  font-weight: 700;
   color: var(--accent);
-  background: rgba(53, 208, 127, 0.12);
-  padding: 2px 6px;
-  border-radius: 4px;
+  background: rgba(53, 208, 127, 0.14);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(53, 208, 127, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sim-battery {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.battery-shell {
+  width: 22px;
+  height: 11px;
+  border: 1.5px solid var(--text-secondary);
+  border-radius: 3px;
+  padding: 1px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.battery-shell::after {
+  content: '';
+  position: absolute;
+  right: -3.5px;
+  top: 2.5px;
+  width: 2px;
+  height: 4px;
+  background: var(--text-secondary);
+  border-radius: 0 1px 1px 0;
+}
+
+.battery-level {
+  height: 100%;
+  width: 94%;
+  background: var(--accent);
+  border-radius: 1px;
 }
 
 /* App Viewport inside Phone */
 .app-viewport {
   flex: 1;
   overflow-y: auto;
-  padding: 12px 16px;
+  padding: 16px 20px;
   position: relative;
 }
 
@@ -558,55 +693,57 @@ body {
 
 /* Common App Headers */
 .app-header {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .app-title {
   font-family: var(--font-main);
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1.1;
+  letter-spacing: -0.5px;
 }
 
 .app-subtitle {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-secondary);
+  margin-top: 3px;
 }
 
 .screen-header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 /* Mode Buttons Row inside Walkie */
 .mode-tabs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 14px;
 }
 
 .mode-btn {
   background: var(--phone-card);
   border: 1px solid var(--border-light);
   color: var(--text-primary);
-  padding: 10px 4px;
+  padding: 12px 6px;
   border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   cursor: pointer;
   transition: all 0.2s;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .mode-btn i {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .mode-btn.active {
@@ -619,29 +756,29 @@ body {
 /* Sim Cards */
 .sim-card {
   background: var(--phone-card);
-  border-radius: var(--radius-md);
-  padding: 14px;
-  margin-bottom: 10px;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
   border: 1px solid var(--border-light);
   transition: all 0.2s;
 }
 
 .card-caption {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
 }
 
 .card-value {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .card-meta {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
 .text-accent { color: var(--accent); }
@@ -712,43 +849,44 @@ body {
 .ptt-container {
   display: flex;
   justify-content: center;
-  margin: 14px 0;
+  margin: 20px 0;
   position: relative;
 }
 
 .ptt-button {
-  width: 150px;
-  height: 150px;
+  width: 184px;
+  height: 184px;
   border-radius: 50%;
   background: var(--phone-card);
-  border: 3px solid var(--accent);
+  border: 3.5px solid var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   position: relative;
-  transition: all 0.15s;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
   touch-action: none;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(53, 208, 127, 0.08);
 }
 
 .ptt-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .ptt-icon {
-  font-size: 38px;
+  font-size: 46px;
   color: var(--accent);
 }
 
 .ptt-label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   color: var(--text-primary);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
 }
 
 .ptt-button.recording {
@@ -1004,16 +1142,16 @@ body {
 .messages-stream {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  height: 480px;
+  gap: 10px;
+  height: 550px;
   overflow-y: auto;
 }
 
 .msg-bubble {
-  padding: 10px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  line-height: 1.4;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.45;
   background: var(--phone-card);
   border: 1px solid var(--border-light);
 }
@@ -1129,7 +1267,7 @@ body {
   inset: 0;
   background: var(--bg-phone);
   z-index: 40;
-  padding: 14px 16px;
+  padding: 16px 20px;
   overflow-y: auto;
 }
 
@@ -1146,35 +1284,65 @@ body {
 .telemetry-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 10px;
 }
 
 .telemetry-card {
   background: var(--phone-card);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 10px;
+  border-radius: 14px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s;
+}
+
+.telemetry-card:hover {
+  border-color: rgba(53, 208, 127, 0.4);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.telemetry-card-highlight {
+  border-color: rgba(53, 208, 127, 0.45);
+  background: linear-gradient(145deg, rgba(53, 208, 127, 0.08), var(--phone-card));
+}
+
+.telemetry-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.telemetry-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
 }
 
 .telemetry-val {
   display: block;
-  font-size: 16px;
+  font-size: 20px;
   font-family: var(--font-main);
-  margin: 2px 0;
+  font-weight: 800;
+  margin: 4px 0;
+  letter-spacing: -0.3px;
 }
 
 .resource-row {
-  font-size: 11px;
-  margin-bottom: 6px;
+  font-size: 12px;
+  margin-bottom: 8px;
 }
 
 .progress-bar {
   width: 100%;
-  height: 6px;
+  height: 7px;
   background: #252D37;
   border-radius: 6px;
   overflow: hidden;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 .progress-fill {
@@ -1185,13 +1353,15 @@ body {
 
 /* Bottom Navigation Bar */
 .sim-bottomnav {
-  height: 58px;
+  height: 64px;
   background: var(--phone-card);
   border-top: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: space-around;
+  padding: 0 8px;
   z-index: 20;
+  user-select: none;
 }
 
 .nav-item {
@@ -1201,16 +1371,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  font-size: 9px;
+  gap: 4px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  padding: 4px 8px;
+  padding: 6px 10px;
+  border-radius: 10px;
 }
 
 .nav-item i {
-  font-size: 16px;
+  font-size: 19px;
+}
+
+.nav-item:hover {
+  color: var(--text-primary);
 }
 
 .nav-item.active {
@@ -1219,6 +1394,23 @@ body {
 
 .nav-item.active i {
   transform: translateY(-1px);
+}
+
+/* Modern Flagship Home Gesture Indicator */
+.phone-home-indicator-bar {
+  height: 20px;
+  background: var(--phone-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.home-indicator {
+  width: 140px;
+  height: 4.5px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
 }
 
 /* Language Selection Modal */
@@ -1644,6 +1836,9 @@ body {
     grid-template-columns: 1fr;
     gap: 40px;
   }
+  .simulator-column {
+    position: static;
+  }
   .pitch-column {
     text-align: center;
     align-items: center;
@@ -1660,15 +1855,26 @@ body {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .pitch-title {
     font-size: 32px;
   }
   .phone-frame {
     width: 100%;
-    height: 720px;
+    max-width: 380px;
+    height: 780px;
     border-width: 8px;
-    border-radius: 36px;
+    border-radius: 42px;
+  }
+  .phone-btn-action,
+  .phone-btn-volume-up,
+  .phone-btn-volume-down,
+  .phone-btn-power {
+    display: none;
+  }
+  .ptt-button {
+    width: 160px;
+    height: 160px;
   }
   .pitch-actions {
     flex-direction: column;
