@@ -33,3 +33,12 @@ enum class TranslationModelStatus {
     NOT_INSTALLED,
     ERROR
 }
+
+data class EmergencyAlertData(
+    val title: String,
+    val message: String,
+    val sender: String,
+    val group: String = "",
+    val timestamp: Long = System.currentTimeMillis()
+)
+

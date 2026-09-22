@@ -822,7 +822,24 @@ function setLanguage(langCode) {
   document.getElementById('txt-groupsSubtitle').innerText = s.groupsSubtitle;
   document.getElementById('newGroupNameInput').placeholder = s.newGroupName;
   document.getElementById('txt-createGroup').innerText = s.createGroup;
+  if (document.getElementById('txt-groupWalkieHold')) {
+    document.getElementById('txt-groupWalkieHold').innerText = s.groupWalkieHold || 'HOLD TO TALK TO GROUP';
+  }
+  if (document.getElementById('txt-groupSosBtn')) {
+    document.getElementById('txt-groupSosBtn').innerText = s.groupSosBtn || 'GROUP EMERGENCY SOS';
+  }
   document.getElementById('txt-sendGroupAlert').innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span>${s.sendGroupAlert}</span>`;
+
+  // Emergency Modal
+  if (document.getElementById('emergencyModalTitle')) {
+    document.getElementById('emergencyModalTitle').innerText = s.emergencySosAlertHeader || 'CRITICAL EMERGENCY ALERT';
+  }
+  if (document.getElementById('emergencyModalPrompt')) {
+    document.getElementById('emergencyModalPrompt').innerText = s.vibratingAlertPrompt || 'Siren and vibration looping continuously until acknowledged';
+  }
+  if (document.getElementById('txt-ackAlert')) {
+    document.getElementById('txt-ackAlert').innerText = s.ackAlert || 'ACKNOWLEDGE & STOP ALARM';
+  }
 
   // Mesh
   document.getElementById('txt-meshLink').innerText = s.meshLink;
@@ -1003,6 +1020,118 @@ function sendGroupAlert() {
   switchTab(2); // Go to messages
 }
 
+// --- GROUP WALKIE TALKIE & GROUP SOS ---
+let isGroupRecording = false;
+let sirenInterval = null;
+
+function startGroupWalkieTalk(e) {
+  if (e) e.preventDefault();
+  if (isGroupRecording) return;
+  isGroupRecording = true;
+  playBeep(880, 0.08);
+
+  const btn = document.getElementById('groupPttBtn');
+  if (btn) btn.classList.add('recording');
+  const lbl = document.getElementById('txt-groupWalkieHold');
+  if (lbl) lbl.innerText = I18N[currentLang]?.listeningActive || 'LISTENING...';
+}
+
+function stopGroupWalkieTalk(e) {
+  if (e) e.preventDefault();
+  if (!isGroupRecording) return;
+  isGroupRecording = false;
+  playBeep(440, 0.06);
+
+  const btn = document.getElementById('groupPttBtn');
+  if (btn) btn.classList.remove('recording');
+  const lbl = document.getElementById('txt-groupWalkieHold');
+  if (lbl) lbl.innerText = I18N[currentLang]?.groupWalkieHold || 'HOLD TO TALK TO GROUP';
+
+  const selectedGroup = document.querySelector('.group-item.selected .group-name')?.innerText || 'Disaster Response Alpha';
+  const sampleMsg = I18N[currentLang]?.sampleTranscript || 'आम्ही सुरक्षित ठिकाणी पोहोचलो आहोत.';
+  appendMessage(selectedGroup, sampleMsg, 'you');
+
+  if ('speechSynthesis' in window && soundEnabled) {
+    try {
+      const utter = new SpeechSynthesisUtterance(sampleMsg);
+      window.speechSynthesis.speak(utter);
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
+  setTimeout(() => switchTab(2), 500);
+}
+
+function sendGroupSosAlert() {
+  const selectedGroup = document.querySelector('.group-item.selected .group-name')?.innerText || 'Disaster Response Alpha';
+  const alertMsg = (currentLang === 'mr')
+    ? 'गट आणीबाणी इशारा: त्वरित मदत आणि बचाव पथकाची आवश्यकता आहे!'
+    : (currentLang === 'hi')
+    ? 'समूह आपातकालीन चेतावनी: तत्काल चिकित्सा एवं बचाव दल की आवश्यकता है!'
+    : 'CRITICAL GROUP SOS: Immediate rescue and medical assistance required!';
+
+  appendMessage(`SOS [${selectedGroup}]`, alertMsg, 'sos');
+  triggerContinuousEmergencyAlert(alertMsg, "Field Unit", selectedGroup);
+}
+
+function triggerContinuousEmergencyAlert(message, sender, group) {
+  const modal = document.getElementById('emergencySosModal');
+  const title = document.getElementById('emergencyModalTitle');
+  const body = document.getElementById('emergencyModalBody');
+  const prompt = document.getElementById('emergencyModalPrompt');
+  const s = I18N[currentLang] || {};
+
+  if (title) title.innerText = s.emergencySosAlertHeader || 'CRITICAL EMERGENCY ALERT';
+  if (body) body.innerText = `"${message}"`;
+  if (prompt) prompt.innerText = s.vibratingAlertPrompt || 'Siren and vibration looping continuously until acknowledged';
+
+  if (modal) modal.classList.add('active');
+  const phone = document.getElementById('phoneSimulatorFrame');
+  if (phone) phone.classList.add('vibrating');
+
+  // Loop siren sound and vibration until user acknowledges
+  playEmergencySiren();
+  if ('vibrate' in navigator) {
+    navigator.vibrate([200, 100, 200, 100, 200, 300, 500, 200, 500, 200, 500, 300, 200, 100, 200, 100, 200]);
+  }
+
+  if (sirenInterval) clearInterval(sirenInterval);
+  sirenInterval = setInterval(() => {
+    playEmergencySiren();
+    if ('vibrate' in navigator) {
+      navigator.vibrate([200, 100, 200, 100, 200, 300, 500, 200, 500, 200, 500, 300, 200, 100, 200, 100, 200]);
+    }
+  }, 2300);
+
+  // Spoken voice alert in receiver's translated language
+  if ('speechSynthesis' in window && soundEnabled) {
+    try {
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(message);
+      window.speechSynthesis.speak(utter);
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+}
+
+function acknowledgeEmergencyAlert() {
+  if (sirenInterval) {
+    clearInterval(sirenInterval);
+    sirenInterval = null;
+  }
+  const modal = document.getElementById('emergencySosModal');
+  if (modal) modal.classList.remove('active');
+  const phone = document.getElementById('phoneSimulatorFrame');
+  if (phone) phone.classList.remove('vibrating');
+
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+  playBeep(440, 0.12);
+}
+
 // --- MESH SCAN SIMULATION ---
 function triggerMeshScan() {
   const btn = document.getElementById('btn-scan');
@@ -1040,26 +1169,19 @@ function broadcastEmergencySos() {
   const custom = document.getElementById('customSosText');
   const msg = custom.value.trim() || I18N[currentLang].alertCyclone;
 
-  // 1. Play Emergency Siren Tone
-  playEmergencySiren();
-
-  // 2. Physical Haptic Morse Vibration if on mobile device
-  if ('vibrate' in navigator) {
-    // SOS: ... --- ...
-    navigator.vibrate([200, 100, 200, 100, 200, 300, 500, 200, 500, 200, 500, 300, 200, 100, 200, 100, 200]);
+  // Screen Flash effect
+  const flash = document.getElementById('sosFlash');
+  if (flash) {
+    flash.classList.add('active');
+    setTimeout(() => flash.classList.remove('active'), 1800);
   }
 
-  // 3. Screen Flash effect
-  const flash = document.getElementById('sosFlash');
-  flash.classList.add('active');
-  setTimeout(() => flash.classList.remove('active'), 1800);
-
-  // 4. Add SOS message
+  // Add SOS message
   appendMessage('SOS', msg, 'sos');
   custom.value = '';
 
-  // 5. Jump to messages after 600ms
-  setTimeout(() => switchTab(2), 600);
+  // Trigger continuous looping siren & vibration with Acknowledge Button
+  triggerContinuousEmergencyAlert(msg, 'Emergency Command', 'Mesh Broadcast');
 }
 
 // --- MESSAGES STREAM ---

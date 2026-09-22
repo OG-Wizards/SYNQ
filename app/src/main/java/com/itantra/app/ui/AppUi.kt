@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Process
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -102,6 +103,7 @@ fun iTantraApp(vm: AppViewModel) {
     var tab by remember { mutableIntStateOf(0) }
     val darkTheme by vm.darkTheme.collectAsState()
     val language by vm.language.collectAsState()
+    val activeEmergencyAlert by vm.activeEmergencyAlert.collectAsState()
     val s = remember(language) { UiStrings(language) }
 
     val colorScheme = if (darkTheme) {
@@ -175,6 +177,93 @@ fun iTantraApp(vm: AppViewModel) {
                         textPrimary = textPrimary,
                         textSecondary = textSecondary
                     )
+                }
+
+                activeEmergencyAlert?.let { alert ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Black.copy(alpha = 0.88f))
+                            .padding(20.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(containerColor = CardDark),
+                            shape = RoundedCornerShape(20.dp),
+                            border = BorderStroke(3.dp, Red)
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(22.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Warning,
+                                    contentDescription = null,
+                                    tint = Red,
+                                    modifier = Modifier.size(54.dp)
+                                )
+                                Spacer(modifier = Modifier.height(10.dp))
+                                Text(
+                                    text = alert.title,
+                                    color = Red,
+                                    fontSize = 17.sp,
+                                    fontWeight = FontWeight.Black
+                                )
+                                Spacer(modifier = Modifier.height(6.dp))
+                                if (alert.group.isNotBlank()) {
+                                    Text(
+                                        text = "Group: ${alert.group}",
+                                        color = Accent,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                }
+                                Text(
+                                    text = "From: ${alert.sender}",
+                                    color = TextSecondaryDark,
+                                    fontSize = 12.sp
+                                )
+                                Spacer(modifier = Modifier.height(14.dp))
+                                Card(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    colors = CardDefaults.cardColors(containerColor = BackgroundDark),
+                                    shape = RoundedCornerShape(12.dp)
+                                ) {
+                                    Column(modifier = Modifier.padding(14.dp)) {
+                                        Text(
+                                            text = alert.message,
+                                            color = TextPrimaryDark,
+                                            fontSize = 16.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                    }
+                                }
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Text(
+                                    text = s.vibratingAlertPrompt,
+                                    color = TextSecondaryDark,
+                                    fontSize = 11.sp
+                                )
+                                Spacer(modifier = Modifier.height(18.dp))
+                                Button(
+                                    onClick = { vm.acknowledgeEmergencyAlert() },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(52.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Red, contentColor = Color.White),
+                                    shape = RoundedCornerShape(14.dp)
+                                ) {
+                                    Text(
+                                        text = s.acknowledgeAlert,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Black
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -725,31 +814,146 @@ private fun GroupPanel(
 
         Spacer(modifier = Modifier.height(14.dp))
 
-        OutlinedTextField(
-            value = message,
-            onValueChange = { message = it },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-            label = { Text(s.groupMessage) }
-        )
+        if (selectedGroup != null) {
+            val currentGroup = selectedGroup!!
+            var walkieActive by remember { mutableStateOf(false) }
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = cardColor),
+                shape = RoundedCornerShape(16.dp),
+                border = if (walkieActive) BorderStroke(2.dp, Accent) else BorderStroke(1.dp, Accent.copy(alpha = 0.3f))
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(14.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = if (walkieActive) s.groupWalkieListening else "${currentGroup.name} · ${s.modeWalkie}",
+                        color = if (walkieActive) Accent else textPrimary,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 15.sp
+                    )
 
-        Button(
-            onClick = {
-                val group = selectedGroup
-                if (group != null && message.isNotBlank()) {
-                    vm.sendGroup(group, message)
-                    message = ""
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Box(
+                        modifier = Modifier
+                            .size(110.dp)
+                            .background(
+                                color = if (walkieActive) Accent else cardColor,
+                                shape = CircleShape
+                            )
+                            .border(BorderStroke(2.dp, if (walkieActive) Color.White else Accent), CircleShape)
+                            .pointerInput(currentGroup) {
+                                detectTapGestures(
+                                    onPress = {
+                                        walkieActive = true
+                                        vm.groupWalkieStart(currentGroup)
+                                        tryAwaitRelease()
+                                        walkieActive = false
+                                        vm.groupWalkieStop()
+                                    }
+                                )
+                            },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(
+                                imageVector = Icons.Default.Mic,
+                                contentDescription = null,
+                                modifier = Modifier.size(36.dp),
+                                tint = if (walkieActive) Color.Black else Accent
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = if (walkieActive) s.listeningActive else s.groupWalkieHold,
+                                color = if (walkieActive) Color.Black else textPrimary,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 10.sp
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Waveform(active = walkieActive)
                 }
-            },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Red, contentColor = Color.White),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Icon(imageVector = Icons.Default.Send, contentDescription = null)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = s.sendGroupAlert)
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Button(
+                onClick = {
+                    val alertText = if (message.isNotBlank()) message.trim() else "EMERGENCY ALERT: Immediate assistance required in group ${currentGroup.name}!"
+                    vm.sendGroupSos(currentGroup, alertText)
+                    message = ""
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Red, contentColor = Color.White),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Icon(imageVector = Icons.Default.Warning, contentDescription = null)
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = "${s.groupSosButton} (${currentGroup.name})", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            OutlinedTextField(
+                value = message,
+                onValueChange = { message = it },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                label = { Text("${s.groupMessage} (${currentGroup.name})") }
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(
+                onClick = {
+                    if (message.isNotBlank()) {
+                        vm.sendGroup(currentGroup, message.trim())
+                        message = ""
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = Accent, contentColor = Color.Black),
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Icon(imageVector = Icons.Default.Send, contentDescription = null)
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = "${s.sendGroupAlert} (${currentGroup.name})", fontWeight = FontWeight.SemiBold)
+            }
+        } else {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = cardColor),
+                shape = RoundedCornerShape(14.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(imageVector = Icons.Default.Groups, contentDescription = null, tint = Accent, modifier = Modifier.size(36.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = s.selectGroup,
+                        color = textPrimary,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 15.sp
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Select a group from the list above to activate group walkie-talkie & emergency alerts.",
+                        color = textSecondary,
+                        fontSize = 12.sp
+                    )
+                }
+            }
         }
     }
 }

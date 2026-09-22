@@ -128,13 +128,35 @@
       <div class="arch-pills">
         <span class="arch-pill"><i class="fa-solid fa-microchip"></i> 100% Kotlin & Jetpack Compose</span>
         <span class="arch-pill"><i class="fa-solid fa-bolt"></i> 38ms Translation Latency</span>
-        <span class="arch-pill"><i class="fa-solid fa-bell"></i> Haptic Morse Feedback</span>
+        <span class="arch-pill"><i class="fa-solid fa-bell"></i> Continuous Morse Haptic Alert</span>
+      </div>
+
+      <!-- Try Simulator Callout -->
+      <div class="try-simulator-callout">
+        <div class="callout-icon">👉</div>
+        <div class="callout-content">
+          <h4><i class="fa-solid fa-hand-pointer"></i> LIVE INTERACTIVE SIMULATOR ON THE RIGHT — TRY IT NOW!</h4>
+          <p>The smartphone on the right is a <strong>live, functional prototype</strong>! Click buttons, hold down the microphone to talk, test Group Dispatch, and test the Emergency SOS siren right here in your browser.</p>
+        </div>
       </div>
     </section>
 
     <!-- Right Column: Interactive Phone Simulator -->
     <section class="simulator-column">
-      <div class="phone-frame">
+      <!-- Live Demo Banner -->
+      <div class="live-demo-banner">
+        <span class="badge-live-dot"></span>
+        <span>⚡ Interactive Smartphone UI · Click & Try Any Feature Below!</span>
+      </div>
+
+      <!-- Floating Interactive Hints -->
+      <div class="interactive-cues-wrapper">
+        <div class="floating-cue"><i class="fa-solid fa-hand-pointer"></i> <span>Click tabs & buttons!</span></div>
+        <div class="floating-cue"><i class="fa-solid fa-microphone"></i> <span>Hold to Talk!</span></div>
+        <div class="floating-cue"><i class="fa-solid fa-triangle-exclamation"></i> <span>Test SOS Siren!</span></div>
+      </div>
+
+      <div class="phone-frame" id="phoneSimulatorFrame">
         <!-- Phone Hardware Shell Elements -->
         <div class="phone-speaker"></div>
         <div class="phone-camera"></div>
@@ -280,6 +302,24 @@
                     <button class="btn-tiny">SELECT</button>
                   </div>
                 </div>
+
+                <!-- Group Walkie-Talkie Card -->
+                <div class="group-walkie-card">
+                  <div class="group-walkie-title">
+                    <i class="fa-solid fa-microphone"></i>
+                    <span id="txt-groupWalkieHeader">Group Voice Dispatch</span>
+                  </div>
+                  <button class="btn-group-ptt" id="groupPttBtn" onmousedown="startGroupWalkieTalk()" onmouseup="stopGroupWalkieTalk()" ontouchstart="startGroupWalkieTalk(event)" ontouchend="stopGroupWalkieTalk(event)">
+                    <i class="fa-solid fa-microphone"></i>
+                    <span id="txt-groupWalkieHold">HOLD TO TALK TO GROUP</span>
+                  </button>
+                </div>
+
+                <!-- Group SOS Button -->
+                <button class="btn-emergency btn-block mt-2" onclick="sendGroupSosAlert()" id="btn-group-sos">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span id="txt-groupSosBtn">GROUP EMERGENCY SOS</span>
+                </button>
 
                 <input type="text" id="groupMsgInput" placeholder="Group message" class="sim-input mt-2" />
                 <button class="btn btn-danger btn-block mt-2" onclick="sendGroupAlert()" id="txt-sendGroupAlert">
@@ -530,6 +570,28 @@
               <span id="txt-navSettings">Settings</span>
             </button>
           </nav>
+
+          <!-- Emergency Alert Modal with Continuous Siren & Acknowledge Button -->
+          <div class="emergency-sos-modal" id="emergencySosModal">
+            <div class="emergency-modal-card">
+              <div class="emergency-modal-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+              </div>
+              <div class="emergency-modal-title" id="emergencyModalTitle">
+                CRITICAL EMERGENCY ALERT
+              </div>
+              <div class="emergency-modal-body" id="emergencyModalBody">
+                "आपत्कालीन मदत पथक त्वरित घटनास्थळी रवाना झाले आहे!"
+              </div>
+              <div class="emergency-modal-prompt" id="emergencyModalPrompt">
+                Siren and vibration looping continuously until acknowledged
+              </div>
+              <button class="btn-ack-alert" onclick="acknowledgeEmergencyAlert()" id="btnAckEmergency">
+                <i class="fa-solid fa-bell-slash"></i>
+                <span id="txt-ackAlert">ACKNOWLEDGE & STOP ALARM</span>
+              </button>
+            </div>
+          </div>
 
         </div>
       </div>

@@ -1332,6 +1332,312 @@ body {
   z-index: 10;
 }
 
+/* Try It Simulator Callout in Pitch Column */
+.try-simulator-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(53, 208, 127, 0.12), rgba(21, 27, 34, 0.9));
+  border: 2px solid var(--accent);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-top: 24px;
+  box-shadow: 0 8px 32px rgba(53, 208, 127, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.try-simulator-callout::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(53, 208, 127, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.callout-icon {
+  font-size: 28px;
+  animation: bounceHand 1.5s infinite;
+}
+
+.callout-content h4 {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.callout-content p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Floating Live Simulator Cue & Banner */
+.live-demo-banner {
+  background: linear-gradient(90deg, #10b981, #059669);
+  color: #000;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+.badge-live-dot {
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+  from { opacity: 0.3; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes bounceHand {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(53, 208, 127, 0.25); }
+  50% { box-shadow: 0 0 30px rgba(53, 208, 127, 0.6); }
+}
+
+/* Floating interactive pointers next to phone */
+.simulator-column {
+  position: relative;
+}
+
+.interactive-cues-wrapper {
+  position: absolute;
+  top: 60px;
+  right: -20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.floating-cue {
+  background: rgba(15, 23, 42, 0.92);
+  border: 1.5px solid var(--accent);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  animation: floatCue 3s ease-in-out infinite alternate;
+}
+
+.floating-cue i {
+  color: var(--accent);
+  font-size: 13px;
+}
+
+@keyframes floatCue {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+
+/* Group Walkie Card & SOS in Simulator */
+.group-walkie-card {
+  background: rgba(53, 208, 127, 0.08);
+  border: 1.5px dashed var(--accent);
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.group-walkie-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-group-ptt {
+  width: 100%;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, var(--accent), #22c55e);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.btn-group-ptt:active, .btn-group-ptt.recording {
+  background: #ef4444;
+  color: #fff;
+  transform: scale(0.97);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+}
+
+.btn-emergency {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(229, 57, 53, 0.35);
+  transition: all 0.15s ease;
+}
+
+.btn-emergency:hover {
+  box-shadow: 0 6px 20px rgba(229, 57, 53, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Continuous SOS Alert Modal in Simulator */
+.emergency-sos-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+.emergency-sos-modal.active {
+  display: flex;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.emergency-modal-card {
+  background: #181d24;
+  border: 3px solid #e53935;
+  border-radius: 20px;
+  padding: 22px;
+  width: 100%;
+  box-shadow: 0 0 40px rgba(229, 57, 53, 0.5);
+  animation: alertPulse 1.5s infinite;
+}
+
+@keyframes alertPulse {
+  0%, 100% { box-shadow: 0 0 25px rgba(229, 57, 53, 0.4); }
+  50% { box-shadow: 0 0 45px rgba(229, 57, 53, 0.8); }
+}
+
+.emergency-modal-icon {
+  font-size: 48px;
+  color: #e53935;
+  margin-bottom: 10px;
+  animation: ringAlarm 0.8s infinite;
+}
+
+@keyframes ringAlarm {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+.emergency-modal-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: #e53935;
+  margin-bottom: 6px;
+}
+
+.emergency-modal-body {
+  background: #0f1318;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 12px 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.emergency-modal-prompt {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.btn-ack-alert {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 20px rgba(229, 57, 53, 0.6);
+  transition: all 0.15s ease;
+}
+
+.btn-ack-alert:hover {
+  background: #f43f5e;
+  transform: scale(1.02);
+}
+
+/* Phone Vibrate Simulation */
+.phone-frame.vibrating {
+  animation: phoneShake 0.15s infinite;
+}
+
+@keyframes phoneShake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3px, 2px); }
+  50% { transform: translate(3px, -2px); }
+  75% { transform: translate(-2px, -3px); }
+  100% { transform: translate(2px, 3px); }
+}
+
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
   .presentation-wrapper {
@@ -1348,6 +1654,9 @@ body {
   .specs-grid {
     width: 100%;
     max-width: 600px;
+  }
+  .interactive-cues-wrapper {
+    display: none;
   }
 }
 

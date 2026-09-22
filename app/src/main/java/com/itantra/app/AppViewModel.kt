@@ -47,8 +47,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import android.media.Ringtone
+import com.itantra.app.model.EmergencyAlertData
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.withContext
 import java.util.Locale
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
@@ -154,6 +160,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
 
     private val _lastActivityAt = MutableStateFlow<Long?>(null)
     val lastActivityAt: StateFlow<Long?> = _lastActivityAt.asStateFlow()
+
+    private val _activeEmergencyAlert = MutableStateFlow<EmergencyAlertData?>(null)
+    val activeEmergencyAlert: StateFlow<EmergencyAlertData?> = _activeEmergencyAlert.asStateFlow()
+
+    private var alertJob: Job? = null
+    private var currentRingtone: Ringtone? = null
+    private var targetWalkieGroup: Group? = null
 
     private val ttsStartTimes = ConcurrentHashMap<String, Long>()
     private val e2eStartTimes = ConcurrentHashMap<String, Long>()
@@ -534,6 +547,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
     // WALKIE TALKIE
     // =========================================================
     fun walkieStart() {
+        targetWalkieGroup = null
         speechLanguage = _language.value
         _transcript.value = ""
         latestPartialSpeech = ""
@@ -545,16 +559,37 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
         stopSpeechRecognition()
     }
 
+    fun groupWalkieStart(group: Group) {
+        targetWalkieGroup = group
+        speechLanguage = _language.value
+        _transcript.value = ""
+        latestPartialSpeech = ""
+        _status.value = "${UiStrings(_language.value).groupWalkieListening} (${group.name})"
+        startSpeechRecognition()
+    }
+
+    fun groupWalkieStop() {
+        stopSpeechRecognition()
+    }
+
     private fun sendRecognizedWalkieText(text: String) {
         if (text.isBlank()) {
+            targetWalkieGroup = null
             _status.value = UiStrings(_language.value).standby
             return
         }
 
         _transcript.value = text
-        sendPacket(type = "WALKIE", text = text, sourceLanguage = _language.value)
-        addMessage("${UiStrings(_language.value).you}: $text")
-        _status.value = UiStrings(_language.value).standby
+        val group = targetWalkieGroup
+        targetWalkieGroup = null
+
+        if (group != null) {
+            sendGroup(group, text)
+        } else {
+            sendPacket(type = "WALKIE", text = text, sourceLanguage = _language.value)
+            addMessage("${UiStrings(_language.value).you}: $text")
+            _status.value = UiStrings(_language.value).standby
+        }
     }
 
     // =========================================================
@@ -572,6 +607,19 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
         _status.value = "${UiStrings(_language.value).sentTo} ${group.name}"
     }
 
+    fun sendGroupSos(group: Group, message: String) {
+        if (message.isBlank()) return
+        sendPacket(
+            type = "SOS",
+            text = message,
+            group = group.name,
+            sourceLanguage = _language.value
+        )
+        addMessage("${UiStrings(_language.value).sos} [${group.name}]: $message")
+        _status.value = "${UiStrings(_language.value).sosSent} (${group.name})"
+        triggerSingleHapticAlert()
+    }
+
     // =========================================================
     // SOS
     // =========================================================
@@ -584,7 +632,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
         )
         addMessage("${UiStrings(_language.value).sos}: $message")
         _status.value = UiStrings(_language.value).sosSent
-        triggerEmergencyAlert()
+        triggerSingleHapticAlert()
     }
 
     // =========================================================
@@ -940,7 +988,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
         }
 
         if (sos) {
-            triggerEmergencyAlert()
+            val alertData = EmergencyAlertData(
+                title = strings.emergencySosAlertHeader,
+                message = text,
+                sender = host,
+                group = group
+            )
+            triggerContinuousEmergencyAlert(alertData)
         }
 
         addMessage("$prefix: $text")
@@ -954,11 +1008,89 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
     }
 
     // =========================================================
-    // EMERGENCY SOS HAPTIC & AUDIBLE ALERT
+    // EMERGENCY SOS CONTINUOUS VIBRATION & AUDIBLE ALERT
     // =========================================================
-    private fun triggerEmergencyAlert() {
+    fun triggerContinuousEmergencyAlert(alertData: EmergencyAlertData) {
+        _activeEmergencyAlert.value = alertData
+        alertJob?.cancel()
+        alertJob = viewModelScope.launch(Dispatchers.Default) {
+            val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val vibratorManager = application.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
+                vibratorManager?.defaultVibrator
+            } else {
+                @Suppress("DEPRECATION")
+                application.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
+            }
+
+            val sosTimings = longArrayOf(0, 250, 150, 250, 150, 250, 300, 600, 200, 600, 200, 600, 300, 250, 150, 250, 150, 250)
+
+            withContext(Dispatchers.Main) {
+                runCatching {
+                    currentRingtone?.stop()
+                    val alertUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+                        ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                    currentRingtone = RingtoneManager.getRingtone(application, alertUri)?.apply {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            audioAttributes = AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_ALARM)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .build()
+                        }
+                        play()
+                    }
+                }
+            }
+
+            while (isActive) {
+                runCatching {
+                    if (vibrator?.hasVibrator() == true) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            val effect = VibrationEffect.createWaveform(sosTimings, -1)
+                            vibrator.vibrate(effect)
+                        } else {
+                            @Suppress("DEPRECATION")
+                            vibrator.vibrate(sosTimings, -1)
+                        }
+                    }
+                }
+                delay(3200)
+                withContext(Dispatchers.Main) {
+                    runCatching {
+                        if (currentRingtone?.isPlaying == false) {
+                            currentRingtone?.play()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun acknowledgeEmergencyAlert() {
+        alertJob?.cancel()
+        alertJob = null
+        _activeEmergencyAlert.value = null
+
         runCatching {
-            // 1. SOS Morse code haptic vibration pattern: ... --- ...
+            val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val vibratorManager = application.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
+                vibratorManager?.defaultVibrator
+            } else {
+                @Suppress("DEPRECATION")
+                application.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
+            }
+            vibrator?.cancel()
+        }
+
+        runCatching {
+            currentRingtone?.stop()
+            currentRingtone = null
+        }
+
+        _status.value = UiStrings(_language.value).standby
+    }
+
+    private fun triggerSingleHapticAlert() {
+        runCatching {
             val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 val vibratorManager = application.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
                 vibratorManager?.defaultVibrator
@@ -978,7 +1110,6 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
                 }
             }
 
-            // 2. Audible siren / emergency alarm tone
             val alertUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
                 ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val ringtone = RingtoneManager.getRingtone(application, alertUri)
@@ -991,17 +1122,14 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
                 }
                 ringtone.play()
                 viewModelScope.launch {
-                    delay(3000)
+                    delay(2000)
                     if (ringtone.isPlaying) {
                         ringtone.stop()
                     }
                 }
-            } else {
-                val toneGen = ToneGenerator(AudioManager.STREAM_ALARM, 100)
-                toneGen.startTone(ToneGenerator.TONE_CDMA_EMERGENCY_RINGBACK, 1500)
             }
         }.onFailure {
-            Log.e("iTantra", "Failed to trigger emergency alert", it)
+            Log.e("iTantra", "Failed to trigger single alert", it)
         }
     }
 
@@ -1077,6 +1205,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app), TextToSpeech.OnIni
 
         tts?.stop()
         tts?.shutdown()
+
+        alertJob?.cancel()
+        alertJob = null
+        runCatching {
+            currentRingtone?.stop()
+            currentRingtone = null
+        }
 
         stopCallAudio()
         transport.stop()
