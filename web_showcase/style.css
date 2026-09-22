@@ -198,12 +198,12 @@ body {
 .presentation-wrapper {
   position: relative;
   z-index: 1;
-  max-width: 1480px;
+  max-width: 1560px;
   margin: 0 auto;
-  padding: 36px 28px;
+  padding: 36px 32px;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 52px;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 56px;
   align-items: start;
 }
 
@@ -457,33 +457,106 @@ body {
   flex-direction: column;
   align-items: center;
   position: sticky;
-  top: 24px;
+  top: 20px;
+}
+
+/* Phone Size Switcher Toolbar */
+.phone-size-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  z-index: 25;
+}
+
+.size-toolbar-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.size-buttons {
+  display: flex;
+  gap: 4px;
+  background: rgba(21, 27, 34, 0.85);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  backdrop-filter: blur(8px);
+}
+
+.btn-size-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-size-toggle:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-size-toggle.active {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 2px 12px rgba(53, 208, 127, 0.35);
 }
 
 .phone-frame {
-  width: 440px;
-  height: 890px;
+  width: 500px;
+  height: 1020px;
   background: #0d1117;
-  border: 11px solid #1a2029;
-  border-radius: 54px;
+  border: 12px solid #1a2029;
+  border-radius: 56px;
   box-shadow: 
-    inset 0 0 0 1.5px rgba(255, 255, 255, 0.12),
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.14),
     0 0 0 2px #090c10,
-    0 35px 85px -10px rgba(0, 0, 0, 0.9),
-    0 0 50px rgba(53, 208, 127, 0.16);
+    0 40px 90px -10px rgba(0, 0, 0, 0.92),
+    0 0 60px rgba(53, 208, 127, 0.18);
   position: relative;
   overflow: visible;
   display: flex;
   flex-direction: column;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.phone-frame.size-compact {
+  width: 420px;
+  height: 870px;
+}
+
+.phone-frame.size-large {
+  width: 500px;
+  height: 1020px;
+}
+
+.phone-frame.size-max {
+  width: 560px;
+  height: 1120px;
 }
 
 /* Physical Phone Side Buttons (Titanium Chassis Finish) */
 .phone-btn-action {
   position: absolute;
   left: -15px;
-  top: 130px;
+  top: 145px;
   width: 4px;
-  height: 32px;
+  height: 34px;
   background: linear-gradient(180deg, #35d07f, #22c55e);
   border-radius: 4px 0 0 4px;
   box-shadow: -1px 0 4px rgba(53, 208, 127, 0.4);
@@ -493,9 +566,9 @@ body {
 .phone-btn-volume-up {
   position: absolute;
   left: -15px;
-  top: 180px;
+  top: 200px;
   width: 4px;
-  height: 54px;
+  height: 58px;
   background: #252d37;
   border-radius: 4px 0 0 4px;
   border-right: 1px solid #1a2029;
@@ -505,9 +578,9 @@ body {
 .phone-btn-volume-down {
   position: absolute;
   left: -15px;
-  top: 246px;
+  top: 272px;
   width: 4px;
-  height: 54px;
+  height: 58px;
   background: #252d37;
   border-radius: 4px 0 0 4px;
   border-right: 1px solid #1a2029;
@@ -517,9 +590,9 @@ body {
 .phone-btn-power {
   position: absolute;
   right: -15px;
-  top: 210px;
+  top: 235px;
   width: 4px;
-  height: 80px;
+  height: 86px;
   background: #252d37;
   border-radius: 0 4px 4px 0;
   border-left: 1px solid #1a2029;
@@ -849,16 +922,16 @@ body {
 .ptt-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 22px 0;
   position: relative;
 }
 
 .ptt-button {
-  width: 184px;
-  height: 184px;
+  width: 204px;
+  height: 204px;
   border-radius: 50%;
   background: var(--phone-card);
-  border: 3.5px solid var(--accent);
+  border: 4px solid var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -867,7 +940,7 @@ body {
   transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
   touch-action: none;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(53, 208, 127, 0.08);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55), inset 0 0 25px rgba(53, 208, 127, 0.1);
 }
 
 .ptt-inner {
@@ -878,15 +951,15 @@ body {
 }
 
 .ptt-icon {
-  font-size: 46px;
+  font-size: 52px;
   color: var(--accent);
 }
 
 .ptt-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
   color: var(--text-primary);
-  letter-spacing: 0.6px;
+  letter-spacing: 0.8px;
 }
 
 .ptt-button.recording {
@@ -1353,13 +1426,13 @@ body {
 
 /* Bottom Navigation Bar */
 .sim-bottomnav {
-  height: 64px;
+  height: 72px;
   background: var(--phone-card);
   border-top: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 8px;
+  padding: 0 10px;
   z-index: 20;
   user-select: none;
 }
@@ -1376,12 +1449,12 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  padding: 6px 10px;
-  border-radius: 10px;
+  padding: 6px 14px;
+  border-radius: 12px;
 }
 
 .nav-item i {
-  font-size: 19px;
+  font-size: 20px;
 }
 
 .nav-item:hover {
@@ -1390,6 +1463,7 @@ body {
 
 .nav-item.active {
   color: var(--accent);
+  background: rgba(53, 208, 127, 0.14);
 }
 
 .nav-item.active i {
@@ -1835,6 +1909,7 @@ body {
   .presentation-wrapper {
     grid-template-columns: 1fr;
     gap: 40px;
+    padding: 24px 16px;
   }
   .simulator-column {
     position: static;
@@ -1855,16 +1930,23 @@ body {
   }
 }
 
-@media (max-width: 500px) {
-  .pitch-title {
-    font-size: 32px;
+@media (max-width: 768px) {
+  .phone-size-toolbar {
+    display: none;
   }
-  .phone-frame {
+  .phone-frame,
+  .phone-frame.size-large,
+  .phone-frame.size-max,
+  .phone-frame.size-compact {
     width: 100%;
-    max-width: 380px;
-    height: 780px;
+    max-width: 480px;
+    height: 880px;
     border-width: 8px;
-    border-radius: 42px;
+    border-radius: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  }
+  .phone-screen {
+    border-radius: 32px;
   }
   .phone-btn-action,
   .phone-btn-volume-up,
@@ -1872,9 +1954,32 @@ body {
   .phone-btn-power {
     display: none;
   }
+}
+
+@media (max-width: 480px) {
+  .presentation-wrapper {
+    padding: 16px 10px;
+  }
+  .pitch-title {
+    font-size: 28px;
+  }
+  .phone-frame,
+  .phone-frame.size-large,
+  .phone-frame.size-max,
+  .phone-frame.size-compact {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 820px;
+    border-width: 4px;
+    border-radius: 26px;
+  }
+  .phone-screen {
+    border-radius: 22px;
+  }
   .ptt-button {
-    width: 160px;
-    height: 160px;
+    width: 170px;
+    height: 170px;
   }
   .pitch-actions {
     flex-direction: column;

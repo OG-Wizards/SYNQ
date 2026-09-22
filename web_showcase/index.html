@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3.2" />
 </head>
 <body>
   <!-- Ambient background glow elements -->
@@ -156,7 +156,23 @@
         <div class="floating-cue"><i class="fa-solid fa-triangle-exclamation"></i> <span>Test SOS Siren!</span></div>
       </div>
 
-      <div class="phone-frame" id="phoneSimulatorFrame">
+      <!-- Device Size Switcher Controls -->
+      <div class="phone-size-toolbar">
+        <span class="size-toolbar-label"><i class="fa-solid fa-mobile-screen"></i> Mobile View:</span>
+        <div class="size-buttons">
+          <button class="btn-size-toggle active" id="btnSizeLarge" onclick="setPhoneSize('large')" title="Life-Size Flagship Smartphone (500px)">
+            <i class="fa-solid fa-expand"></i> Life-Size (500px)
+          </button>
+          <button class="btn-size-toggle" id="btnSizeMax" onclick="setPhoneSize('max')" title="Ultra Large Display (560px)">
+            <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Ultra Max (560px)
+          </button>
+          <button class="btn-size-toggle" id="btnSizeCompact" onclick="setPhoneSize('compact')" title="Compact View (420px)">
+            <i class="fa-solid fa-compress"></i> Compact (420px)
+          </button>
+        </div>
+      </div>
+
+      <div class="phone-frame size-large" id="phoneSimulatorFrame">
         <!-- Physical Hardware Buttons (Titanium Chassis) -->
         <div class="phone-btn-action" title="Action Button"></div>
         <div class="phone-btn-volume-up" title="Volume Up"></div>
@@ -659,6 +675,6 @@
   </footer>
 
   <!-- App Script -->
-  <script src="app.js"></script>
+  <script src="app.js?v=3.2"></script>
 </body>
 </html>

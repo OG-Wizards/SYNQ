@@ -1317,5 +1317,30 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// --- PHONE SCREEN SIZE TOGGLE ---
+function setPhoneSize(size) {
+  const frame = document.getElementById('phoneSimulatorFrame');
+  if (!frame) return;
+
+  document.querySelectorAll('.btn-size-toggle').forEach(b => b.classList.remove('active'));
+  frame.classList.remove('size-compact', 'size-large', 'size-max');
+
+  if (size === 'compact') {
+    frame.classList.add('size-compact');
+    const btn = document.getElementById('btnSizeCompact');
+    if (btn) btn.classList.add('active');
+  } else if (size === 'max') {
+    frame.classList.add('size-max');
+    const btn = document.getElementById('btnSizeMax');
+    if (btn) btn.classList.add('active');
+  } else {
+    frame.classList.add('size-large');
+    const btn = document.getElementById('btnSizeLarge');
+    if (btn) btn.classList.add('active');
+  }
+
+  playBeep(720, 0.04);
+}
+
 // Initial language setup
 setLanguage('mr');
