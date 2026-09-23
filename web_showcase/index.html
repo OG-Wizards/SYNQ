@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=3.3" />
+  <link rel="stylesheet" href="style.css?v=3.4" />
 </head>
 <body>
   <!-- Ambient background glow elements -->
@@ -131,29 +131,54 @@
         <span class="arch-pill"><i class="fa-solid fa-bell"></i> Continuous Morse Haptic Alert</span>
       </div>
 
-      <!-- Try Simulator Callout -->
-      <div class="try-simulator-callout">
-        <div class="callout-icon">👉</div>
-        <div class="callout-content">
-          <h4><i class="fa-solid fa-hand-pointer"></i> LIVE INTERACTIVE SIMULATOR ON THE RIGHT — TRY IT NOW!</h4>
-          <p>The smartphone on the right is a <strong>live, functional prototype</strong>! Click buttons, hold down the microphone to talk, test Group Dispatch, and test the Emergency SOS siren right here in your browser.</p>
+      <!-- Try Simulator Callout with Prominent Animated Pointer Arrow -->
+      <div class="try-simulator-callout" id="interactivePromptCallout" onclick="highlightSimulator()" title="Click to test the live interactive phone prototype!">
+        <div class="callout-header-row">
+          <div class="live-pulse-chip">
+            <span class="pulse-radar-dot"></span>
+            <span class="live-chip-text"><i class="fa-solid fa-bolt"></i> 100% LIVE INTERACTIVE PROTOTYPE</span>
+          </div>
+          <span class="click-to-focus-badge"><i class="fa-solid fa-arrow-pointer"></i> Click to Focus Phone</span>
+        </div>
+
+        <div class="callout-body-wrap">
+          <div class="callout-content">
+            <h4><i class="fa-solid fa-mobile-screen-button"></i> REAL-TIME SMARTPHONE ON THE RIGHT — TRY IT NOW!</h4>
+            <p>This is a <strong>real, functional web app</strong>, not a video or static screenshot! Click the screen buttons, hold the Walkie-Talkie mic to speak, test 10 Indian languages, and test the emergency SOS siren.</p>
+          </div>
+        </div>
+
+        <!-- Big Directional Pointer Arrow Track Pointing to Right Column -->
+        <div class="arrow-pointing-to-phone">
+          <div class="arrow-track-text">
+            <span class="pointer-hand">👉</span>
+            <span>TEST LIVE FEATURES ON THE RIGHT</span>
+          </div>
+          <div class="arrow-flow-cluster">
+            <span class="arrow-pulsing-line"></span>
+            <i class="fa-solid fa-chevron-right chevron-1"></i>
+            <i class="fa-solid fa-chevron-right chevron-2"></i>
+            <i class="fa-solid fa-chevron-right chevron-3"></i>
+            <i class="fa-solid fa-arrow-right-long arrow-main-pointer"></i>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Right Column: Interactive Phone Simulator -->
     <section class="simulator-column">
-      <!-- Live Demo Banner -->
-      <div class="live-demo-banner">
+      <!-- Live Demo Banner with Downward Pointer -->
+      <div class="live-demo-banner" onclick="highlightSimulator()" title="Click to highlight interactive phone screen">
         <span class="badge-live-dot"></span>
-        <span>⚡ Interactive Smartphone UI · Click & Try Any Feature Below!</span>
+        <span>⚡ 100% Interactive Smartphone UI · Click & Try Any Feature Below!</span>
+        <i class="fa-solid fa-arrow-down-long banner-arrow-down"></i>
       </div>
 
       <!-- Floating Interactive Hints -->
       <div class="interactive-cues-wrapper">
-        <div class="floating-cue"><i class="fa-solid fa-hand-pointer"></i> <span>Click tabs & buttons!</span></div>
-        <div class="floating-cue"><i class="fa-solid fa-microphone"></i> <span>Hold to Talk!</span></div>
-        <div class="floating-cue"><i class="fa-solid fa-triangle-exclamation"></i> <span>Test SOS Siren!</span></div>
+        <div class="floating-cue"><i class="fa-solid fa-arrow-left cue-arrow"></i> <i class="fa-solid fa-hand-pointer"></i> <span>Click tabs & buttons!</span></div>
+        <div class="floating-cue"><i class="fa-solid fa-arrow-left cue-arrow"></i> <i class="fa-solid fa-microphone"></i> <span>Hold to Talk!</span></div>
+        <div class="floating-cue"><i class="fa-solid fa-arrow-left cue-arrow"></i> <i class="fa-solid fa-triangle-exclamation"></i> <span>Test SOS Siren!</span></div>
       </div>
 
       <!-- Device Size Switcher Controls -->
@@ -173,6 +198,20 @@
       </div>
 
       <div class="phone-frame size-large" id="phoneSimulatorFrame">
+        <!-- Interactive Pointer Badge on Phone Screen -->
+        <div class="phone-side-pointer" id="phoneSidePointer" onclick="highlightSimulator()" title="Live Interactive App - Tap to Test">
+          <div class="pointer-badge-pill">
+            <span class="pointer-radar"></span>
+            <i class="fa-solid fa-fingerprint"></i>
+            <span>INTERACTIVE SCREEN</span>
+          </div>
+          <div class="pointer-arrow-svg-wrap">
+            <svg class="pointer-arrow-svg" width="48" height="24" viewBox="0 0 48 24" fill="none">
+              <path d="M4 12 H38 M28 3 L39 12 L28 21" stroke="#35D07F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
         <!-- Physical Hardware Buttons (Titanium Chassis) -->
         <div class="phone-btn-action" title="Action Button"></div>
         <div class="phone-btn-volume-up" title="Volume Up"></div>
@@ -675,6 +714,6 @@
   </footer>
 
   <!-- App Script -->
-  <script src="app.js?v=3.3"></script>
+  <script src="app.js?v=3.4"></script>
 </body>
 </html>

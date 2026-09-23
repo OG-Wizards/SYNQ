@@ -1598,20 +1598,32 @@ body {
   z-index: 10;
 }
 
+/* =========================================================
+   INTERACTIVE SIMULATOR CALLOUT & POINTING ARROWS
+   ========================================================= */
+
 /* Try It Simulator Callout in Pitch Column */
 .try-simulator-callout {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  background: linear-gradient(135deg, rgba(53, 208, 127, 0.12), rgba(21, 27, 34, 0.9));
+  flex-direction: column;
+  gap: 14px;
+  background: linear-gradient(135deg, rgba(53, 208, 127, 0.12), rgba(17, 24, 39, 0.95));
   border: 2px solid var(--accent);
-  border-radius: 16px;
-  padding: 18px 20px;
+  border-radius: 20px;
+  padding: 20px 22px;
   margin-top: 24px;
-  box-shadow: 0 8px 32px rgba(53, 208, 127, 0.2);
+  box-shadow: 0 10px 36px rgba(53, 208, 127, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.try-simulator-callout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 44px rgba(53, 208, 127, 0.38);
+  border-color: #00F5A0;
 }
 
 .try-simulator-callout::before {
@@ -1625,33 +1637,191 @@ body {
   pointer-events: none;
 }
 
-.callout-icon {
-  font-size: 28px;
-  animation: bounceHand 1.5s infinite;
+.callout-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.live-pulse-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(53, 208, 127, 0.18);
+  border: 1px solid rgba(53, 208, 127, 0.45);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.pulse-radar-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(53, 208, 127, 0.7);
+  animation: radarPulse 1.8s infinite;
+}
+
+@keyframes radarPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(53, 208, 127, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(53, 208, 127, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(53, 208, 127, 0); }
+}
+
+.click-to-focus-badge {
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+  font-weight: 600;
+}
+
+.try-simulator-callout:hover .click-to-focus-badge {
+  color: var(--accent);
+}
+
+.callout-body-wrap {
+  position: relative;
+  z-index: 2;
 }
 
 .callout-content h4 {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
-  color: var(--accent);
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
+  color: #fff;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+.callout-content h4 i {
+  color: var(--accent);
+}
+
 .callout-content p {
+  font-size: 13.5px;
+  color: #cbd5e1;
+  line-height: 1.55;
+}
+
+/* Directional Pointer Arrow Track Pointing Right to Mobile Screen */
+.arrow-pointing-to-phone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(53, 208, 127, 0.4);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-top: 4px;
+  position: relative;
+  z-index: 2;
+  box-shadow: inset 0 0 16px rgba(53, 208, 127, 0.1);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.try-simulator-callout:hover .arrow-pointing-to-phone {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: #00F5A0;
+}
+
+.arrow-track-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.pointer-hand {
+  font-size: 18px;
+  animation: bounceHandX 1.4s infinite ease-in-out;
+}
+
+.arrow-flow-cluster {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--accent);
+}
+
+.arrow-pulsing-line {
+  width: 44px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent));
+  border-radius: 2px;
+  animation: glowLine 1.4s infinite alternate;
+}
+
+.chevron-1 {
+  font-size: 11px;
+  animation: marchChev 1.4s infinite;
+  animation-delay: 0s;
+}
+
+.chevron-2 {
+  font-size: 12px;
+  animation: marchChev 1.4s infinite;
+  animation-delay: 0.15s;
+}
+
+.chevron-3 {
   font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
+  animation: marchChev 1.4s infinite;
+  animation-delay: 0.3s;
+}
+
+.arrow-main-pointer {
+  font-size: 22px;
+  animation: marchMainArrow 1.4s infinite;
+  filter: drop-shadow(0 0 6px rgba(53, 208, 127, 0.7));
+}
+
+@keyframes bounceHandX {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+@keyframes marchChev {
+  0% { opacity: 0.3; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(4px); }
+  100% { opacity: 0.3; transform: translateX(0); }
+}
+
+@keyframes marchMainArrow {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes glowLine {
+  from { opacity: 0.4; width: 32px; }
+  to { opacity: 1; width: 52px; }
 }
 
 /* Floating Live Simulator Cue & Banner */
 .live-demo-banner {
   background: linear-gradient(90deg, #10b981, #059669);
   color: #000;
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: 30px;
   font-size: 12px;
   font-weight: 800;
@@ -1664,6 +1834,23 @@ body {
   margin-bottom: 14px;
   text-transform: uppercase;
   animation: pulseGlow 2.5s infinite ease-in-out;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.live-demo-banner:hover {
+  transform: scale(1.02);
+}
+
+.banner-arrow-down {
+  margin-left: 4px;
+  font-size: 13px;
+  animation: bounceDown 1.2s infinite alternate ease-in-out;
+}
+
+@keyframes bounceDown {
+  from { transform: translateY(-2px); }
+  to { transform: translateY(3px); }
 }
 
 .badge-live-dot {
@@ -1678,11 +1865,6 @@ body {
 @keyframes blink {
   from { opacity: 0.3; transform: scale(0.8); }
   to { opacity: 1; transform: scale(1.2); }
-}
-
-@keyframes bounceHand {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(6px); }
 }
 
 @keyframes pulseGlow {
@@ -1727,9 +1909,134 @@ body {
   font-size: 13px;
 }
 
+.cue-arrow {
+  color: var(--accent);
+  font-size: 11px;
+  margin-right: -2px;
+  animation: pointLeftToPhone 1.4s infinite ease-in-out;
+}
+
+@keyframes pointLeftToPhone {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-4px); }
+}
+
 @keyframes floatCue {
   from { transform: translateY(0); }
   to { transform: translateY(-6px); }
+}
+
+/* Side Pointer Attached Directly to Phone Frame */
+.phone-side-pointer {
+  position: absolute;
+  top: 96px;
+  left: -196px;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(13, 17, 23, 0.96);
+  border: 1.5px solid var(--accent);
+  padding: 8px 14px;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 22px rgba(53, 208, 127, 0.45);
+  cursor: pointer;
+  animation: bouncePointerToPhone 1.6s infinite ease-in-out;
+  backdrop-filter: blur(12px);
+  user-select: none;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.phone-side-pointer:hover {
+  transform: scale(1.05) translateX(4px);
+  border-color: #00F5A0;
+}
+
+.pointer-badge-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.pointer-badge-pill i {
+  color: var(--accent);
+  font-size: 13px;
+}
+
+.pointer-radar {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: radarPulse 1.5s infinite;
+}
+
+.pointer-arrow-svg-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.pointer-arrow-svg {
+  filter: drop-shadow(0 0 5px rgba(53, 208, 127, 0.7));
+}
+
+@keyframes bouncePointerToPhone {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(9px); }
+}
+
+/* Frame Highlight Pulse on User Click */
+.phone-frame.frame-pulse-highlight {
+  animation: framePulseGlow 1.8s ease-out;
+}
+
+@keyframes framePulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(53, 208, 127, 0.95), 0 0 80px rgba(53, 208, 127, 0.75);
+    border-color: var(--accent);
+  }
+  35% {
+    box-shadow: 0 0 0 22px rgba(53, 208, 127, 0), 0 0 110px rgba(53, 208, 127, 0.95);
+    border-color: #00F5A0;
+  }
+  100% {
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.14), 0 0 0 2px #090c10, 0 40px 90px -10px rgba(0, 0, 0, 0.92), 0 0 60px rgba(53, 208, 127, 0.18);
+    border-color: #1a2029;
+  }
+}
+
+/* Responsive Pointer Adaptations */
+@media (max-width: 1280px) {
+  .phone-side-pointer {
+    left: -160px;
+    padding: 6px 10px;
+  }
+  .pointer-badge-pill {
+    font-size: 10px;
+  }
+  .pointer-arrow-svg {
+    width: 38px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .arrow-flow-cluster {
+    transform: rotate(90deg);
+  }
+  .phone-side-pointer {
+    position: static;
+    margin: 0 auto 12px auto;
+    width: fit-content;
+    animation: bounceDown 1.4s infinite alternate;
+  }
+  .phone-side-pointer .pointer-arrow-svg-wrap {
+    transform: rotate(90deg);
+  }
 }
 
 /* Group Walkie Card & SOS in Simulator */

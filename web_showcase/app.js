@@ -1342,5 +1342,25 @@ function setPhoneSize(size) {
   playBeep(720, 0.04);
 }
 
+// --- HIGHLIGHT PHONE SIMULATOR ON POINTER CLICK ---
+function highlightSimulator() {
+  const frame = document.getElementById('phoneSimulatorFrame');
+  if (!frame) return;
+
+  if (window.innerWidth < 1100) {
+    frame.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  frame.classList.remove('frame-pulse-highlight');
+  void frame.offsetWidth; // Force CSS reflow to retrigger animation
+  frame.classList.add('frame-pulse-highlight');
+
+  playBeep(880, 0.06);
+
+  setTimeout(() => {
+    frame.classList.remove('frame-pulse-highlight');
+  }, 2000);
+}
+
 // Initial language setup
 setLanguage('mr');
