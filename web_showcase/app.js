@@ -15,7 +15,7 @@ const I18N = {
     holdToTalk: "बोलण्यासाठी धरून ठेवा",
     listeningActive: "ऐकत आहे…",
     recognizedSpeech: "ओळखलेले संभाषण",
-    sampleTranscript: "आम्ही सुरक्षित ठिकाणी पोहोचलो आहोत.",
+    sampleTranscript: "कारखान्यात गॅस गळती झाली आहे.",
     standby: "ऑफलाइन तयार",
     callTitle: "खाजगी वाय-फाय कॉल",
     callSubtitle: "सिम किंवा इंटरनेटशिवाय रिअल-टाइम १६kHz PCM ऑडिओ",
@@ -85,7 +85,7 @@ const I18N = {
     holdToTalk: "बोलने के लिए दबाकर रखें",
     listeningActive: "सुन रहा है…",
     recognizedSpeech: "पहचाना गया भाषण",
-    sampleTranscript: "हम सुरक्षित स्थान पर पहुंच गए हैं।",
+    sampleTranscript: "कारखाने में गैस रिसाव हुआ है।",
     standby: "ऑफलाइन तैयार",
     callTitle: "निजी वाई-फाई कॉल",
     callSubtitle: "सिम या इंटरनेट के बिना रीयल-टाइम 16kHz PCM ऑडियो",
@@ -155,7 +155,7 @@ const I18N = {
     holdToTalk: "બોલવા માટે દબાવી રાખો",
     listeningActive: "સાંભળી રહ્યું છે…",
     recognizedSpeech: "ઓળખાયેલ ભાષણ",
-    sampleTranscript: "અમે સલામત સ્થળે પહોંચી ગયા છીએ.",
+    sampleTranscript: "કારખાનામાં ગેસ ગળતર થયું છે.",
     standby: "ઑફલાઇન તૈયાર",
     callTitle: "ખાનગી વાઇ-ફાઇ કૉલ",
     callSubtitle: "સિમ અથવા ઇન્ટરનેટ વિના રીઅલ-ટાઇમ 16kHz PCM ઑડિઓ",
@@ -225,7 +225,7 @@ const I18N = {
     holdToTalk: "কথা বলতে ধরে রাখুন",
     listeningActive: "শুনছে…",
     recognizedSpeech: "শনাক্তকৃত বক্তব্য",
-    sampleTranscript: "আমরা নিরাপদ স্থানে পৌঁছেছি।",
+    sampleTranscript: "কারখানায় গ্যাস লিকেজ হয়েছে।",
     standby: "অফলাইনে প্রস্তুত",
     callTitle: "ব্যক্তিগত ওয়াই-ফাই কল",
     callSubtitle: "সিম বা ইন্টারনেট ছাড়া রিয়েল-টাইম ১৬kHz PCM অডিও",
@@ -295,7 +295,7 @@ const I18N = {
     holdToTalk: "பேச அழுத்திப் பிடிக்கவும்",
     listeningActive: "கேட்கிறது…",
     recognizedSpeech: "அடையாளம் காணப்பட்ட பேச்சு",
-    sampleTranscript: "நாங்கள் பாதுகாப்பான இடத்தை அடைந்துவிட்டோம்.",
+    sampleTranscript: "தொழிற்சாலையில் எரிவாயு கசிவு ஏற்பட்டுள்ளது.",
     standby: "ஆஃப்லைன் தயார்",
     callTitle: "தனிப்பட்ட வைஃபை அழைப்பு",
     callSubtitle: "சிம் அல்லது இணையம் இல்லாமல் நிகழ்நேர 16kHz PCM ஆடியோ",
@@ -365,7 +365,7 @@ const I18N = {
     holdToTalk: "మాట్లాడటానికి నొక్కి పట్టుకోండి",
     listeningActive: "వింటోంది…",
     recognizedSpeech: "గుర్తించిన మాటలు",
-    sampleTranscript: "మేము సురక్షితమైన ప్రదేశానికి చేరుకున్నాము.",
+    sampleTranscript: "ఫ్యాక్టరీలో గ్యాస్ లీకేజీ జరిగింది.",
     standby: "ఆఫ్‌లైన్ సిద్ధం",
     callTitle: "ప్రైవేట్ వై-ఫై కాల్",
     callSubtitle: "సిమ్ లేదా ఇంటర్నెట్ లేకుండా రియల్-టైమ్ 16kHz PCM ఆడియో",
@@ -435,7 +435,7 @@ const I18N = {
     holdToTalk: "ಮಾತನಾಡಲು ಒತ್ತಿ ಹಿಡಿಯಿರಿ",
     listeningActive: "ಕೇಳುತ್ತಿದೆ…",
     recognizedSpeech: "ಗುರುತಿಸಲಾದ ಮಾತು",
-    sampleTranscript: "ನಾವು ಸುರಕ್ಷಿತ ಸ್ಥಳವನ್ನು ತಲುಪಿದ್ದೇವೆ.",
+    sampleTranscript: "ಕಾರ್ಖಾನೆಯಲ್ಲಿ ಅನಿಲ ಸೋರಿಕೆಯಾಗಿದೆ.",
     standby: "ಆಫ್‌ಲೈನ್ ಸಿದ್ಧ",
     callTitle: "ಖಾಸಗಿ ವೈ-ಫೈ ಕರೆ",
     callSubtitle: "ಸಿಮ್ ಅಥವಾ ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆ ನೈಜ-ಸಮಯದ 16kHz PCM ಆಡಿಯೋ",
@@ -505,7 +505,7 @@ const I18N = {
     holdToTalk: "സംസാരിക്കാൻ അമർത്തിപ്പിടിക്കുക",
     listeningActive: "കേൾക്കുന്നു…",
     recognizedSpeech: "തിരിച്ചറിഞ്ഞ സംസാരം",
-    sampleTranscript: "ഞങ്ങൾ സുരക്ഷിതമായ സ്ഥലത്തെത്തി.",
+    sampleTranscript: "ഫാക്ടറിയിൽ ഗ്യാസ് ചോർച്ച ഉണ്ടായിട്ടുണ്ട്.",
     standby: "ഓഫ്‌ലൈൻ തയ്യാർ",
     callTitle: "സ്വകാര്യ വൈ-ഫൈ കോൾ",
     callSubtitle: "സിമ്മോ ഇന്റർനെറ്റോ ഇല്ലാതെ തത്സമയ 16kHz PCM ഓഡിയോ",
@@ -575,7 +575,7 @@ const I18N = {
     holdToTalk: "ਬੋਲਣ ਲਈ ਦਬਾ ਕੇ ਰੱਖੋ",
     listeningActive: "ਸੁਣ ਰਿਹਾ ਹੈ…",
     recognizedSpeech: "ਪਛਾਣੀ ਗਈ ਆਵਾਜ਼",
-    sampleTranscript: "ਅਸੀਂ ਸੁਰੱਖਿਅਤ ਸਥਾਨ ਤੇ ਪਹੁੰਚ ਗਏ ਹਾਂ।",
+    sampleTranscript: "ਫੈਕਟਰੀ ਵਿੱਚ ਗੈਸ ਲੀਕ ਹੋ ਰਹੀ ਹੈ।",
     standby: "ਆਫਲਾਈਨ ਤਿਆਰ",
     callTitle: "ਨਿੱਜੀ ਵਾਈ-ਫਾਈ ਕਾਲ",
     callSubtitle: "ਸਿਮ ਜਾਂ ਇੰਟਰਨੈਟ ਤੋਂ ਬਿਨਾਂ ਰੀਅਲ-ਟਾਈਮ 16kHz PCM ਆਡੀਓ",
@@ -645,7 +645,7 @@ const I18N = {
     holdToTalk: "HOLD TO TALK",
     listeningActive: "LISTENING…",
     recognizedSpeech: "Recognized speech",
-    sampleTranscript: "We have reached safe location successfully.",
+    sampleTranscript: "There is gas leakage in Factory.",
     standby: "Offline ready",
     callTitle: "Private Wi-Fi Call",
     callSubtitle: "Real-time bidirectional 16kHz PCM audio without SIM or internet",
@@ -1113,7 +1113,7 @@ function stopGroupWalkieTalk(e) {
   if (lbl) lbl.innerText = I18N[currentLang]?.groupWalkieHold || 'HOLD TO TALK TO GROUP';
 
   const selectedGroup = document.querySelector('.group-item.selected .group-name')?.innerText || 'Disaster Response Alpha';
-  const sampleMsg = I18N[currentLang]?.sampleTranscript || 'आम्ही सुरक्षित ठिकाणी पोहोचलो आहोत.';
+  const sampleMsg = I18N[currentLang]?.sampleTranscript || 'कारखान्यात गॅस गळती झाली आहे.';
   appendMessage(selectedGroup, sampleMsg, 'you');
 
   if ('speechSynthesis' in window && soundEnabled) {
